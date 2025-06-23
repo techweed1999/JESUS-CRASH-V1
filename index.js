@@ -22,7 +22,7 @@ const {
   } = require('@whiskeysockets/baileys')
 
   
-  const { checkSpam, isBlocked } = require('./lib/antiSpam');
+  const antiSpamPlugin = require('./plugins/antiSpam');
   const l = console.log
   const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson } = require('./lib/functions')
   const { AntiDelDB, initializeAntiDeleteSettings, setAnti, getAnti, getAllAntiDeleteSettings, saveContact, loadMessage, getName, getChatSummary, saveGroupMetadata, getGroupMetadata, saveMessageCount, getInactiveGroupMembers, getGroupMembersMessageCount, saveMessage } = require('./data')
