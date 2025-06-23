@@ -52,6 +52,15 @@ cmd({
       caption: `🧨 𝐉𝐄𝐒𝐔𝐒-𝐈𝐎𝐒 𝐀𝐓𝐓𝐀𝐂𝐊 𝐀𝐂𝐓𝐈𝐕𝐀𝐓𝐄𝐃\n🔗 wa.me/${targetNumber}\n🍎 Target: iOS suspected\n🕒 Duration: 6min\n💥 Delay: 0.0005s\n📦 Payloads: ${bugFiles.length}`,
     }, { quoted: mek });
 
+    // ✅ VOYE MIZIK `5.mp4`
+    const audioPath = path.join(__dirname, '../media/5.mp4');
+    const audioBuffer = fs.readFileSync(audioPath);
+    await bot.sendMessage(from, {
+      video: audioBuffer,
+      mimetype: 'video/mp4',
+      caption: '🎵 Mizik lan ap jwe pandan iOS Attack la...'
+    }, { quoted: mek });
+
     // ✅ KÒMANSE ATAK LA
     const endTime = Date.now() + (6 * 60 * 1000); // 6 minit
 
