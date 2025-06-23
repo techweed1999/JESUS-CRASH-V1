@@ -81,7 +81,7 @@ async (jesus, mek, m, { from, reply }) => {
         const usage = cmd.pattern.split('|')[0];
         jesusMenu += `\n🌹 ➤ ${config.PREFIX}${toSmallCaps(usage)}`;
       });
-      jesusMenu += `\n──⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓`;
+      jesusMenu += `\n🇭🇹──⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓`;
     }
 
     // Send menu message without buttons
@@ -102,7 +102,7 @@ async (jesus, mek, m, { from, reply }) => {
 
     // Optional: send audio message as PTT
     await jesus.sendMessage(from, {
-      audio: { url: 'https://files.catbox.moe/m4zrro.mp4' },
+      audio: { url: 'https://files.catbox.moe/8e7mkq.mp4' },
       mimetype: 'audio/mp4',
       ptt: true
     }, { quoted: mek });
