@@ -20,7 +20,7 @@ const {
     fetchLatestBaileysVersion,
     Browsers
   } = require('@whiskeysockets/baileys')
-
+  
   
   const l = console.log
   const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson } = require('./lib/functions')
@@ -107,14 +107,14 @@ const port = process.env.PORT || 9090;
   const path = require('path');
   fs.readdirSync("./plugins/").forEach((plugin) => {
   if (path.extname(plugin).toLowerCase() == ".js") {
-  require("./plugins/" + plugin)(conn);
+  require("./plugins/" + plugin);
   }
   });
   console.log('Plugins installed successful ✅')
   console.log('JESUS-CRASH-V1 CONNECTED SUCCESSFULLY ✅')
   
   let up = `*Hello there JESUS-CRASH-V1 User! \ud83d\udc4b\ud83c\udffb* \n\n> Simple , Straight Forward But Loaded With Features \ud83c\udf8a, Meet JESUS-CRASH-V1 WhatsApp Bot.\n\n *Thanks for using JESUS-CRASH-V1 \ud83d\udea9* \n\n> Join WhatsApp Channel :- ⤵️\n \https://whatsapp.com/channel/0029VbAq7chIXnlyraijAX1u\n\n- *YOUR PREFIX:* = ${prefix}\n\n- *BOT MODE:* = ${config.MODE}\n\nDont forget to give star to repo ⬇️\n\nhttps://github.com/DAWENS-BOY96/JESUS-CRASH-V1\n\n> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ DAWENS BOY \ud83d\udda4`;
-    conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/a51qw5.jpeg` }, caption: up })
+    conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/fuoqii.png` }, caption: up })
   }
   })
   conn.ev.on('creds.update', saveCreds)
