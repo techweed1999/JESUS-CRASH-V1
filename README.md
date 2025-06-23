@@ -123,7 +123,7 @@ You will be asked to fill in some stuffs like your session Id , and other stuffs
 
 Get session I'd here:
 
-[https://zarya-session-by-dawens-boy-tech.onrender.com]
+[https://jesus-crash-v1-session-id.onrender.com]
 
 After you're done filling it
 Click deploy button 
