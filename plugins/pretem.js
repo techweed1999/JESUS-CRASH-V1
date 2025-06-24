@@ -1,41 +1,40 @@
 const { cmd } = require('../command');
-const { downloadMediaMessage } = require('@whiskeysockets/baileys');
+const { Sticker, StickerTypes } = require('wa-sticker-formatter');
 
 cmd({
   pattern: 'pretem',
-  desc: 'Re-envoye sticker oswa medya ak author Dawens',
+  desc: 'Re-send any sticker as yours (with custom packname)',
   category: 'spam',
   react: '🎭',
   filename: __filename
-}, async (client, message) => {
+}, async (bot, mek, m, { reply }) => {
   try {
-    const quoted = message.quoted;
-    const remoteJid = message.key.remoteJid;
+    const quoted = mek.quoted;
 
-    if (!quoted) {
-      return await client.sendMessage(remoteJid, {
-        text: '_❗Tanpri reply sou yon imaj, videyo, oswa sticker._'
-      }, { quoted: message });
+    if (!quoted || quoted.mtype !== 'stickerMessage') {
+      return reply('❌ Reply to a sticker to pretend it\'s yours.');
     }
 
-    const mime = quoted.mimetype || '';
-    if (!/image|video|sticker/.test(mime)) {
-      return await client.sendMessage(remoteJid, {
-        text: '_❗Sa ou reply a pa yon medya ki valab._'
-      }, { quoted: message });
-    }
+    const media = await bot.downloadMediaMessage(quoted);
+    if (!media) return reply('❌ Failed to download sticker.');
 
-    const mediaBuffer = await downloadMediaMessage(quoted, 'buffer', {}, {});
+    // 🏷️ Mete non ou ak packname ou vle a
+    const packname = '𓄂⍣⃝𝐆𝚯𝐃𝄟✮͢≛𝐃𝐀𝐖𝐄𝐍𝐒𝄟✮⃝🧭𓄂';
+    const author = 'DAWENS-BOT';
 
-    await client.sendMessage(remoteJid, {
-      sticker: mediaBuffer,
-      packname: '𓄂⍣⃝𝐆𝚯𝐃𝄟✮͢≛𝐃𝐀𝐖𝐄𝐍𝐒𝄟✮⃝🧭𓄂𝟙𝟠𝟘𝟞',
-      author: 'DAWENS'
-    }, { quoted: message });
+    const sticker = new Sticker(media, {
+      pack: packname,
+      author,
+      type: StickerTypes.FULL,
+      quality: 100,
+    });
+
+    const stickerBuffer = await sticker.toBuffer();
+
+    await bot.sendMessage(mek.chat, { sticker: stickerBuffer }, { quoted: mek });
 
   } catch (err) {
-    await client.sendMessage(message.key.remoteJid, {
-      text: `_❌ Erè: ${err.message}_`
-    }, { quoted: message });
+    console.error('[PRETEM ERROR]', err);
+    reply('❌ An error occurred while sending the sticker.');
   }
 });
