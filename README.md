@@ -251,7 +251,11 @@ That's all bot connected
 <h3 align-"center"> Important</h3>
 <h6 align-"center">Attention! We do not take responsibility if your github account is suspended through this Deploy method, I advise you not to use this workflow deploy method in the latest github accounts, github accounts created a year or more ago have not received the risk of suspension so far, this works It will only be done for 6 hours, you need to update the code to reactivate it.</h6>
 
-```
+## ⚙️ WORKFLOWS
+
+```.github/workflows/deploy.yml```
+
+```WORKFLOWS
 name: Node.js CI
 
 on:
@@ -264,7 +268,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -272,80 +275,73 @@ jobs:
         node-version: [20.x]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Start application
-      run: npm start
+      - name: Start application
+        run: npm start
 ```
-</details> 
-
-***
 
 
 
+## 👑 PROJECT OWNER 
+HII DEARS FRIENDS IF YOU WANT ANY HELP SO YOU CAN CONTACT↘︎ WITH ME WIA WHATSAPP ITS ME DAWENS BOY࿐➺
 
-## 🌐 WhatsApp Channel 
+<p align="">
+<a href='https://wa.me/50942241547?text=*ʜɪɪ+dawens+boy+ɪ+ɴᴇᴇᴅ+ʜᴇʟᴘ!.+ɪ+ᴍᴇssᴀɢᴇᴅ+ʏᴏᴜ+ғʀᴏᴍ+JESUS+CRASH+V1+ʀᴇᴘᴏ!!*' target="_blank"><img alt='Replit' src='https://img.shields.io/badge/ Whatsapp -25D366?style=for-the-badge&logo=whatsapp&logoColor=white'/< width=150 height=28/p></a> </a>
+<a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 
-Stay connected with the latest updates and community by joining our official WhatsApp group and channel. You can also contact the owner directly.
 
-[![WhatsApp Channel](https://img.shields.io/badge/Join-WhatsApp%20Channel-25D366?style=for-the-badge&logo=whatsapp)](https://whatsapp.com/channel/0029VbCHd5V1dAw132PB7M1B)
+## 🪀 WHATSAPP CHANNEL 
+STAY CONNECTED WITH THE LATEST UPDATES AND COMMUNITY BY JOINING OUR OFFICIAL WHATSAPP GROUP AND CHANNEL. YOU CAN ALSO CONTACT THE OWNER DIRECTLY.
 
-***
+[![WhatsApp Channel](https://img.shields.io/badge/JOIN-WHATSAAP%20CHANNEL-25D366?style=for-the-badge&logo=whatsapp)](https://whatsapp.com/channel/0029VbCHd5V1dAw132PB7M1B)
 
-<h2 align="left">⚠️ Reminder ⚠️</h2>
+## 🪀 WHATSAPP GROUP
+JOINING OUR OFFICIAL WHATSAPP GROUP AND CHANNEL. YOU CAN ALSO CONTACT THE OWNER DIRECTLY.
+
+[![WhatsApp Group](https://img.shields.io/badge/JOIN-WHATSAAP%20GROUP-25D366?style=for-the-badge&logo=whatsapp)](https://chat.whatsapp.com/K7i0cqEZ0MrGqVP77CpFcP)
+
+ 
+
+THANKS TO 
+
+<a href="https://github.com/INCONNU BOY"><img src="https://github.com/Itxxwasi.png" width="250" height="250" alt="INCONNU BOY"/></a>
+
+<p><b>THANKS TO INCONNU BOY.</b></p>
+
+
+## <h2 align="left">⚠️ REMINDER </h2>
 <p style="text-align: center; font-size: 1.2em;">
 
-- **Disclaimer:** This bot is not affiliated with `WhatsApp Inc.`. Use it at your own risk.
-- Misusing the bot may result in your `WhatsApp` account being banned. Note that you can only unban your account once.
-- I am not responsible for any bans or misuse of the bot. Please keep this warning in mind before proceeding.
+- **DISCLAIMER:** THIS BOT IS NOT AFFILIATED WITH `WhatsApp Inc.`. USE IT AT YOUR OWN RISK.
+- MISUSING THE BOT MAY RESULT IN YOUR `WhatsApp` ACCOUNT BEING BANNED. NOTE THAT YOU CAN ONLY UNBAN YOUR ACCOUNT ONCE.
+- I AM NOT RESPONSIBLE FOR ANY BANS OR MISUSE OF THE BOT. PLEASE KEEP THIS WARNING IN MIND BEFORE PROCEEDING.
 
 ---
 
-<h2 align="left">ℹ️ Notice</h2>
+<h2 align="left">ℹ️ NOTICE</h2>
 <p style="text-align: center; font-size: 1.2em;">
-  Not For Sale - If any plugin's code is obfuscated, you do not have permission to edit it in any form. Please remember to give credit if you are using or re-uploading my plugins/files. Wishing you a wonderful day ahead!</p>
+  NOT FOR SALE - IF ANY PLUGIN'S CODE IS OBFUSCATED, YOU DO NOT HAVE PERMISSION TO EDIT IT IN ANY FORM. PLEASE REMEMBER TO GIVE CREDIT IF YOU ARE USING OR RE-UPLOADING MY PLUGINS/FILES. WISHING YOU A WONDERFUL DAY AHEAD!</p>
   
 ---
 
-<h2 align="center"> Project Owners </h2>
-
----
-
-### Thank You Dear
-
-> DEVELOPER OF JESUS-CRASH-V1
-- [DAWENS BOY ](https://github.com/DAWENS-BOY96)
-- Creater and Owner Of JESUS-CRASH-V1
-
-> JESUS-CRASH-V1
-- [INCONNU](https://github.com/INCONNU-BOY)
-- For helping in bot plugin files.
----
-
  <br>
-<h2 align="center"> ⚠️ Disclaimer ⚠️
+<h2 align="center"> ⚠️ DISCLAIMER ⚠️
  </h2>
  
  ---
 
-<h3 align="center"> Don't Copy Without Permission 
+<h3 align="center"> DON'T COPY WITHOUT PERMISSION 
 </h3>
 
 <br>
 
-```
-Thank you For jesus crash v1 Bot
-```
------
-<a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
-
-------
