@@ -316,7 +316,7 @@ JOINING OUR OFFICIAL WHATSAPP GROUP AND CHANNEL. YOU CAN ALSO CONTACT THE OWNER 
 
 THANKS TO 
 
-<a href="https://github.com/INCONNU BOY"><img src="https://github.com/Itxxwasi.png" width="250" height="250" alt="INCONNU BOY"/></a>
+<a href="https://github.com/INCONNU BOY"><img src="https://github.com/INCONNU BOY.png" width="250" height="250" alt="INCONNU BOY"/></a>
 
 <p><b>THANKS TO INCONNU BOY.</b></p>
 
