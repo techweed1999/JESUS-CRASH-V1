@@ -1,7 +1,7 @@
 const { cmd } = require('../command');
 const fs = require('fs');
 const { File } = require('megajs');
-const { default: makeWASocket } = require('baileys');
+const { default: makeWASocket } = require('@whiskeysockets/baileys');
 
 // Session memory
 global.jadibotSessions = global.jadibotSessions || {};
