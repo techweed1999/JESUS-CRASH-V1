@@ -1,96 +1,86 @@
 const { cmd } = require('../command');
 const fs = require('fs');
-const path = require('path');
 const { File } = require('megajs');
 const { default: makeWASocket } = require('baileys');
 
-// Mémoire des sessions jadibot actives
+// Global memory to store active jadibot sessions
 global.jadibotSessions = global.jadibotSessions || {};
 
 cmd({
   pattern: 'deploy',
-  desc: 'Deploy your own WhatsApp session (Jadibot-style) using a JESUS~CRASH~V1~ session ID from MEGA.nz',
+  desc: '🚀 Deploy your own WhatsApp session using a MEGA session backup.',
   category: 'tools',
-  react: '🤖',
+  react: '🔌',
   filename: __filename
 }, async (conn, m, { text }) => {
-  if (!text) {
-    return m.reply('❌ Provide your session ID.\n\nExample:\n.deploy JESUS~CRASH~V1~<file_id>#<key>');
-  }
+  if (!text) return m.reply(`❌ *Please provide a MEGA Session ID*\n\nExample:\n.deploy JESUS~CRASH~V1~<file_id>#<file_key>`);
 
-  const match = text.trim().match(/^JESUS~CRASH~V1~([a-zA-Z0-9_-]+)#([a-zA-Z0-9_-]+)$/);
-  if (!match) {
-    return m.reply('❌ Invalid format. Use:\n.deploy JESUS~CRASH~V1~<file_id>#<key>');
-  }
+  const match = text.trim().match(/^JESUS~CRASH~V1~([a-zA-Z0-9\-_]+)#([a-zA-Z0-9\-_]+)$/);
+  if (!match) return m.reply(`❌ *Invalid format!*\nUse:\n.deploy JESUS~CRASH~V1~<file_id>#<file_key>`);
 
-  const fileId = match[1];
-  const fileKey = match[2];
+  const [_, fileId, fileKey] = match;
 
-  if (global.jadibotSessions[fileId]) {
-    return m.reply('⚠️ This session is already active.');
-  }
+  if (global.jadibotSessions[fileId])
+    return m.reply('⚠️ *This session is already connected.*');
 
-  if (Object.keys(global.jadibotSessions).length >= 10) {
-    return m.reply('⚠️ Maximum number of active Jadibot sessions reached (10).');
-  }
+  if (Object.keys(global.jadibotSessions).length >= 5)
+    return m.reply('⚠️ *Maximum Jadibot sessions reached (limit = 5).*');
 
   try {
-    m.reply(`📥 Downloading session from MEGA...\nFile ID: ${fileId}`);
+    m.reply(`📥 *Downloading your session...*\n\n🆔 ID: ${fileId}`);
 
-    const megaUrl = `https://mega.nz/#!${fileId}!${fileKey}`;
-    const file = File.fromURL(megaUrl);
-    const stream = await file.download();
-    const chunks = [];
+    const sessionFile = File.fromURL(`https://mega.nz/#!${fileId}!${fileKey}`);
+    const stream = await sessionFile.download();
+    const data = [];
 
-    for await (const chunk of stream) chunks.push(chunk);
-    const sessionBuffer = Buffer.concat(chunks);
+    for await (const chunk of stream) data.push(chunk);
 
-    let sessionJson;
-    try {
-      sessionJson = JSON.parse(sessionBuffer.toString());
-    } catch (err) {
-      return m.reply('❌ Session file is not a valid JSON.');
-    }
+    const sessionBuffer = Buffer.concat(data);
+    const sessionJson = JSON.parse(sessionBuffer.toString());
 
+    // Start WhatsApp socket
     const sock = makeWASocket({
       auth: {
         creds: sessionJson.creds,
         keys: sessionJson.keys || {}
       },
-      printQRInTerminal: false
+      printQRInTerminal: false,
+      browser: ['JesusCrashDeploy', 'Chrome', '121.0.0.1']
     });
 
     global.jadibotSessions[fileId] = sock;
 
+    m.reply('⏳ *Connecting your session... Please wait.*');
+
     sock.ev.on('connection.update', (update) => {
-      const { connection, lastDisconnect } = update;
+      const { connection, lastDisconnect, qr } = update;
+
+      if (connection === 'open') {
+        m.reply(`✅ *Jadibot session \`${fileId}\` is now connected!*`);
+        console.log(`[CONNECTED] Session ${fileId}`);
+      }
+
       if (connection === 'close') {
         delete global.jadibotSessions[fileId];
-        console.log(`🔴 Session ${fileId} disconnected.`);
-      } else if (connection === 'open') {
-        console.log(`🟢 Session ${fileId} connected.`);
-        m.reply(`✅ Your Jadibot session **${fileId}** is now connected!`);
+        const reason = lastDisconnect?.error?.output?.statusCode || 'Unknown';
+        console.log(`[DISCONNECTED] Session ${fileId} | Reason: ${reason}`);
       }
     });
 
     sock.ev.on('messages.upsert', async ({ messages }) => {
       const msg = messages[0];
       if (!msg?.message) return;
-      const from = msg.key.remoteJid;
-      const isGroup = from.endsWith('@g.us');
-      const sender = isGroup ? msg.key.participant : from;
 
-      // Exemple : Répond automatiquement à "ping"
+      const from = msg.key.remoteJid;
       const textMsg = msg.message.conversation || msg.message.extendedTextMessage?.text;
+
       if (textMsg?.toLowerCase() === 'ping') {
         await sock.sendMessage(from, { text: 'pong 🏓' }, { quoted: msg });
       }
     });
 
-    m.reply(`🤖 Connecting your session... Please wait.`);
-
-  } catch (e) {
-    console.error(e);
-    m.reply(`❌ Error while deploying session: ${e.message}`);
+  } catch (err) {
+    console.error('Error while deploying:', err);
+    m.reply(`❌ *Error while deploying session:*\n\n${err.message}`);
   }
 });
