@@ -1,9 +1,7 @@
 const { cmd } = require('../command');
-const fs = require('fs');
 const { File } = require('megajs');
 const { default: makeWASocket } = require('@whiskeysockets/baileys');
 
-// Session memory
 global.jadibotSessions = global.jadibotSessions || {};
 
 cmd({
@@ -13,36 +11,28 @@ cmd({
   react: '🪛',
   filename: __filename
 }, async (conn, m, { text }) => {
-  if (!text) {
-    return m.reply('❌ *Please provide a MEGA Session ID!*\n\nExample:\n.deploy JESUS~CRASH~V1~<file_id>#<file_key>');
-  }
+  if (!text) return m.reply('❌ *Please provide a MEGA Session ID!* Example:\n.deploy JESUS~CRASH~V1~<file_id>#<file_key>');
 
   const match = text.trim().match(/^JESUS~CRASH~V1~([a-zA-Z0-9_-]+)#([a-zA-Z0-9_-]+)$/);
-  if (!match) return m.reply('❌ *Invalid session format.*\n\nUse:\n.deploy JESUS~CRASH~V1~<file_id>#<file_key>');
+  if (!match) return m.reply('❌ *Invalid session format.* Use:\n.deploy JESUS~CRASH~V1~<file_id>#<file_key>');
 
   const [, fileId, fileKey] = match;
 
-  if (global.jadibotSessions[fileId])
-    return m.reply('⚠️ *Session already active.*');
-
-  if (Object.keys(global.jadibotSessions).length >= 5)
-    return m.reply('⚠️ *Limit reached (max 5 sessions).*');
+  if (global.jadibotSessions[fileId]) return m.reply('⚠️ *Session already active.*');
+  if (Object.keys(global.jadibotSessions).length >= 5) return m.reply('⚠️ *Limit reached (max 5 sessions).*');
 
   try {
-    m.reply(`📥 *Fetching session...*\nID: ${fileId}`);
+    m.reply(`📥 *Fetching session...* ID: ${fileId}`);
 
     const sessionFile = File.fromURL(`https://mega.nz/#!${fileId}!${fileKey}`);
     const stream = await sessionFile.download();
 
-    const buffer = [];
-    for await (const chunk of stream) buffer.push(chunk);
+    const chunks = [];
+    for await (const chunk of stream) chunks.push(chunk);
 
-    let sessionJson;
-    try {
-      sessionJson = JSON.parse(Buffer.concat(buffer).toString());
-    } catch (err) {
-      return m.reply('❌ *Invalid session file format. Not JSON.*');
-    }
+    const sessionJson = JSON.parse(Buffer.concat(chunks).toString());
+
+    if (!sessionJson.creds) return m.reply('❌ *Invalid session JSON, missing creds.*');
 
     const sock = makeWASocket({
       auth: {
@@ -60,9 +50,7 @@ cmd({
       if (connection === 'open') {
         m.reply(`✅ *Session \`${fileId}\` connected successfully!*`);
         console.log(`✅ [CONNECTED] ${fileId}`);
-      }
-
-      if (connection === 'close') {
+      } else if (connection === 'close') {
         delete global.jadibotSessions[fileId];
         const reason = lastDisconnect?.error?.output?.statusCode || 'Unknown';
         console.log(`❌ [DISCONNECTED] ${fileId} | Reason: ${reason}`);
