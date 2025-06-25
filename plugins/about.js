@@ -47,7 +47,7 @@ cmd({
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: '0029VbCHd5V1dAw132PB7M1B@newsletter',
+          newsletterJid: '120363419768812867@newsletter',
           newsletterName: 'JESUS-CRASH-V1',
           serverMessageId: 143
         }
