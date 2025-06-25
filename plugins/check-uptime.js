@@ -37,7 +37,7 @@ async (conn, mek, m, { from, reply }) => {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363401658098220@newsletter',
+                    newsletterJid: '120363419768812867@newsletter',
                     newsletterName: config.OWNER_NAME || 'JESUS-CRASH-V1',
                     serverMessageId: 143
                 }
