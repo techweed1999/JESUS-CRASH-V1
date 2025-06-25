@@ -1,0 +1,17 @@
+const fs = require('fs');
+const blockedPath = './data/blocked.json';
+
+let blockedUsers = new Set();
+
+if (fs.existsSync(blockedPath)) {
+  blockedUsers = new Set(JSON.parse(fs.readFileSync(blockedPath)));
+}
+
+function saveBlocked() {
+  fs.writeFileSync(blockedPath, JSON.stringify([...blockedUsers]));
+}
+
+function blockUser(sender) {
+  blockedUsers.add(sender);
+  saveBlocked();
+}
