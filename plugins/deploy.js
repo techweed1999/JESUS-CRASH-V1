@@ -11,9 +11,10 @@ cmd({
   react: '🪛',
   filename: __filename
 }, async (conn, m, { text }) => {
-  if (!text) return m.reply('❌ *Please provide a MEGA Session ID!* Example:\n.deploy JESUS~CRASH~V1~<file_id>#<file_key>');
+  if (!text) return m.reply('❌ *Please provide a MEGA Session ID!*\nExample:\n.deploy JESUS~CRASH~V1~<file_id>#<file_key>');
 
-  const match = text.trim().match(/^JESUS~CRASH~V1~([a-zA-Z0-9_-]+)#([a-zA-Z0-9_-]+)$/);
+  // ✅ REGEX FIXED: allow full MEGA file key characters
+  const match = text.trim().match(/^JESUS~CRASH~V1~([^#]+)#(.+)$/);
   if (!match) return m.reply('❌ *Invalid session format.* Use:\n.deploy JESUS~CRASH~V1~<file_id>#<file_key>');
 
   const [, fileId, fileKey] = match;
@@ -29,10 +30,12 @@ cmd({
 
     const chunks = [];
     for await (const chunk of stream) chunks.push(chunk);
-
     const sessionJson = JSON.parse(Buffer.concat(chunks).toString());
 
-    if (!sessionJson.creds) return m.reply('❌ *Invalid session JSON, missing creds.*');
+    // ✅ Additional validation
+    if (!sessionJson.creds || typeof sessionJson.creds !== 'object') {
+      return m.reply('❌ *Invalid session JSON: missing or malformed creds.*');
+    }
 
     const sock = makeWASocket({
       auth: {
