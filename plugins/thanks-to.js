@@ -27,7 +27,7 @@ const thanksCommand = async (m, Matrix) => {
                 forwardingScore: 1000,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363397722863547@newsletter', // optional
+                    newsletterJid: '120363419768812867@newsletter', // optional
                     newsletterName: 'JESUS-CRASH-V1',
                     serverMessageId: 143
                 }
