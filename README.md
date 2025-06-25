@@ -1,60 +1,104 @@
 <p align="center">
-  <h1 align="center">💫 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏 💫</h1>
+  <h1 align="center">💫 JESUS-CRASH-V1 💫</h1>
 </p>
 
-  <p align="center">
-<a href="https://github.com/DAWENS-BOY96/followers"><img title="Followers" src="https://img.shields.io/github/followers/DAWENS-BOY96?color=blue&style=flat-square"></a>
-<a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/DAWENS-BOY96/JESUS-CRASH-V1?color=blue&style=flat-square"></a>
-<a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1/network/members"><img title="Forks" src="https://img.shields.io/github/forks/DAWENS-BOY96/JESUS-CRASH-V1?color=blue&style=flat-square"></a>
-<a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1/"><img title="Size" src="https://img.shields.io/github/repo-size/DAWENS-BOY96/JESUS-CRASH-V1?style=flat-square&color=green"></a>
-<a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1/graphs/commit-activity"><img height="20" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg"></a>&nbsp;&nbsp;
-</p>
-<p align='center'>
+<p align="center">
+  <a href="https://github.com/DAWENS-BOY96/followers">
+    <img title="Followers" src="https://img.shields.io/github/followers/DAWENS-BOY96?color=blue&style=flat-square" />
+  </a>
+  <a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1/stargazers/">
+    <img title="Stars" src="https://img.shields.io/github/stars/DAWENS-BOY96/JESUS-CRASH-V1?color=blue&style=flat-square" />
+  </a>
+  <a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1/network/members">
+    <img title="Forks" src="https://img.shields.io/github/forks/DAWENS-BOY96/JESUS-CRASH-V1?color=blue&style=flat-square" />
+  </a>
+  <a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1/">
+    <img title="Repo Size" src="https://img.shields.io/github/repo-size/DAWENS-BOY96/JESUS-CRASH-V1?style=flat-square&color=green" />
+  </a>
+  <a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1/graphs/commit-activity">
+    <img height="20" src="https://img.shields.io/badge/Maintained-Yes-green.svg" />
+  </a>
 </p>
 
-> **`Current Bot Version ➜ 1.0.0`**
 ---
 
-```
-Dont forget to fork 🍴 & star 🌟 repo😇
-```
+<p align="center">
+  <strong>Current Bot Version:</strong> <code>1.0.0</code>
+</p>
+
+---
+
+<p align="center">
+  <code>Don't forget to ⭐ star & 🍴 fork this repo!</code>
+</p>
+
 ---
 
 <p align="center">
   <a href="https://github.com/DAWENS-BOY96">
-    <img src="http://readme-typing-svg.herokuapp.com?color=blue&center=true&vCenter=true&multiline=false&lines=jesus-crash-v1+MultiDevice;Developed+by+DAWENS-BOY;Give+star+and+fork+this+Repo+bro+🌟" alt="DAWENSeadme">
+    <img src="http://readme-typing-svg.herokuapp.com?color=blue&center=true&vCenter=true&multiline=false&lines=jesus-crash-v1+MultiDevice;Developed+by+DAWENS-BOY;Give+star+and+fork+this+Repo+bro+🌟" alt="DAWENS Readme Typing" />
   </a>
 </p>
 
---- 
-
-<a><img src='https://files.catbox.moe/fuoqii.png'/></a>
-
-<a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
-
-***
+---
 
 <p align="center">
-  <a href="https://github.com/DAWENS-BOY96"><img title="Developer" src="https://img.shields.io/badge/Author-DAWENS%20BOY0-397604.svg?style=for-the-badge&logo=github" /></a>
+  <img src="https://files.catbox.moe/fuoqii.png" alt="Banner Image" width="600" />
+</p>
+
+<p align="center">
+  <img src="https://i.imgur.com/LyHic3i.gif" alt="Animated GIF" width="400" />
+</p>
+
+---
+
+<p align="center">
+  <a href="https://github.com/DAWENS-BOY96">
+    <img title="Developer" src="https://img.shields.io/badge/Author-DAWENS%20BOY0-397604.svg?style=for-the-badge&logo=github" />
+  </a>
 </p>
 
 <div align="center">
-  
-[![WhatsApp Channel](https://img.shields.io/badge/Join-WhatsApp%20Channel-FF00F8?style=for-the-badge&logo=whatsapp)](https://whatsapp.com/channel/0029Vb4a985InlqSS0l3ro3c#N7Mti4kjHnOwhF8PLajt4KvJt_dNPPAeNjgLaszm3po)
+  <a href="https://whatsapp.com/channel/0029Vb4a985InlqSS0l3ro3c#N7Mti4kjHnOwhF8PLajt4KvJt_dNPPAeNjgLaszm3po">
+    <img src="https://img.shields.io/badge/Join-WhatsApp%20Channel-FF00F8?style=for-the-badge&logo=whatsapp" alt="WhatsApp Channel" />
+  </a>
 </div>
 
- <p align="center"><img src="https://profile-counter.glitch.me/{JESUS-CRASH-V1}/count.svg" alt="DAWENS-BOY96 :: Visitor's Count" old_src="https://profile-counter.glitch.me/{DAWENS-BOY96}/count.svg" /></p>
+<p align="center">
+  <img src="https://profile-counter.glitch.me/JESUS-CRASH-V1/count.svg" alt="Visitor Count" />
+</p>
 
+---
 
 <p align="center">
-<a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1"><img title="PUBLIC-BOT" src="https://img.shields.io/static/v1?label=Language&message=English&style=flat-square&color=darkpink"></a> &nbsp;
-  <img src="https://komarev.com/ghpvc/?username=jesus-crash-v1&label=VIEWS&style=flat-square&color=blue" />
+  <a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1">
+    <img title="Language" src="https://img.shields.io/static/v1?label=Language&message=English&style=flat-square&color=darkpink" />
+  </a>
+  &nbsp;
+  <img src="https://komarev.com/ghpvc/?username=jesus-crash-v1&label=VIEWS&style=flat-square&color=blue" alt="Views" />
 </p>
-</p> 
+
+---
 
 <p align="center">
-  <a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1"><img title="Release" src="https://img.shields.io/badge/Release-beta%20v2.0-darkcyan.svg?style=for-the-badge&logo=appveyor" /></a>
+  <a href="https://github.com/DAWENS-BOY96/JESUS-CRASH-V1/releases/tag/v2.0-beta">
+    <img title="Release" src="https://img.shields.io/badge/Release-beta%20v2.0-darkcyan.svg?style=for-the-badge&logo=appveyor" />
+  </a>
 </p>
+
+---
+
+## About JESUS-CRASH-V1
+
+JESUS-CRASH-V1 is a powerful multi-device WhatsApp bot designed to automate tasks and enhance your messaging experience. Developed with love and care by **DAWENS-BOY**, this bot supports a variety of commands, features, and customization options.
+
+## Features
+
+- Multi-device support  
+- Rich command set for groups and private chats  
+- Auto-replies, moderation, fun commands  
+- Easy to deploy and configure  
+- Constant updates and bug fixes
 
 
 ***
