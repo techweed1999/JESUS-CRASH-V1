@@ -294,56 +294,63 @@ jobs:
 
 
 
-## 👑 PROJECT OWNER 
-HII DEARS FRIENDS IF YOU WANT ANY HELP SO YOU CAN CONTACT↘︎ WITH ME WIA WHATSAPP ITS ME DAWENS BOY࿐➺
+## 👑 PROJECT OWNER
 
-<p align="">
-<a href='https://wa.me/50942241547?text=*ʜɪɪ+dawens+boy+ɪ+ɴᴇᴇᴅ+ʜᴇʟᴘ!.+ɪ+ᴍᴇssᴀɢᴇᴅ+ʏᴏᴜ+ғʀᴏᴍ+JESUS+CRASH+V1+ʀᴇᴘᴏ!!*' target="_blank"><img alt='Replit' src='https://img.shields.io/badge/ Whatsapp -25D366?style=for-the-badge&logo=whatsapp&logoColor=white'/< width=150 height=28/p></a> </a>
-<a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
+**Hi dear friends!**  
+If you need any help, you can contact me via WhatsApp.  
+_It's me, **Dawens Boy** ࿐➺_
 
+[![Contact on WhatsApp](https://img.shields.io/badge/Chat%20on-WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/50942241547?text=*ʜɪɪ+dawens+boy+ɪ+ɴᴇᴇᴅ+ʜᴇʟᴘ!.+ɪ+ᴍᴇssᴀɢᴇᴅ+ʏᴏᴜ+ғʀᴏᴍ+JESUS+CRASH+V1+ʀᴇᴘᴏ!!*)
 
-## 🪀 WHATSAPP CHANNEL 
-STAY CONNECTED WITH THE LATEST UPDATES AND COMMUNITY BY JOINING OUR OFFICIAL WHATSAPP GROUP AND CHANNEL. YOU CAN ALSO CONTACT THE OWNER DIRECTLY.
+<img src="https://i.imgur.com/LyHic3i.gif" width="320"/>
 
-[![WhatsApp Channel](https://img.shields.io/badge/JOIN-WHATSAAP%20CHANNEL-25D366?style=for-the-badge&logo=whatsapp)](https://whatsapp.com/channel/0029VbCHd5V1dAw132PB7M1B)
+---
+
+## 🪀 WHATSAPP CHANNEL
+
+📰 Stay updated with the latest versions and features of **JESUS-CRASH-V1**  
+Join our **official WhatsApp Channel**:
+
+[![Join WhatsApp Channel](https://img.shields.io/badge/JOIN-WHATSAPP%20CHANNEL-25D366?style=for-the-badge&logo=whatsapp)](https://whatsapp.com/channel/0029VbCHd5V1dAw132PB7M1B)
+
+---
 
 ## 🪀 WHATSAPP GROUP
-JOINING OUR OFFICIAL WHATSAPP GROUP AND CHANNEL. YOU CAN ALSO CONTACT THE OWNER DIRECTLY.
 
-[![WhatsApp Group](https://img.shields.io/badge/JOIN-WHATSAAP%20GROUP-25D366?style=for-the-badge&logo=whatsapp)](https://chat.whatsapp.com/K7i0cqEZ0MrGqVP77CpFcP)
+💬 Talk to the community, report bugs, and get help!
 
- 
-
-THANKS TO 
-
-<a href="https://github.com/INCONNU BOY"><img src="https://files.catbox.moe/e1k73u.jpg" width="250" height="250" alt="INCONNU BOY"/></a>
-
-<p><b>THANKS TO INCONNU BOY.</b></p>
-
-
-## <h2 align="left">⚠️ REMINDER </h2>
-<p style="text-align: center; font-size: 1.2em;">
-
-- **DISCLAIMER:** THIS BOT IS NOT AFFILIATED WITH `WhatsApp Inc.`. USE IT AT YOUR OWN RISK.
-- MISUSING THE BOT MAY RESULT IN YOUR `WhatsApp` ACCOUNT BEING BANNED. NOTE THAT YOU CAN ONLY UNBAN YOUR ACCOUNT ONCE.
-- I AM NOT RESPONSIBLE FOR ANY BANS OR MISUSE OF THE BOT. PLEASE KEEP THIS WARNING IN MIND BEFORE PROCEEDING.
+[![Join WhatsApp Group](https://img.shields.io/badge/JOIN-WHATSAPP%20GROUP-25D366?style=for-the-badge&logo=whatsapp)](https://chat.whatsapp.com/K7i0cqEZ0MrGqVP77CpFcP)
 
 ---
 
-<h2 align="left">ℹ️ NOTICE</h2>
-<p style="text-align: center; font-size: 1.2em;">
-  NOT FOR SALE - IF ANY PLUGIN'S CODE IS OBFUSCATED, YOU DO NOT HAVE PERMISSION TO EDIT IT IN ANY FORM. PLEASE REMEMBER TO GIVE CREDIT IF YOU ARE USING OR RE-UPLOADING MY PLUGINS/FILES. WISHING YOU A WONDERFUL DAY AHEAD!</p>
-  
+## 🙏 THANKS TO:
+
+<a href="https://github.com/INCONNU-BOY"><img src="https://files.catbox.moe/e1k73u.jpg" width="200" height="200" alt="INCONNU BOY"/></a>
+
+**Special thanks to INCONNU BOY**  
+_For contributions, ideas, and endless support._ 🖤
+
 ---
 
- <br>
-<h2 align="center"> ⚠️ DISCLAIMER ⚠️
- </h2>
- 
- ---
+## ⚠️ REMINDER
 
-<h3 align="center"> DON'T COPY WITHOUT PERMISSION 
-</h3>
+> **DISCLAIMER**  
+> - This bot is not affiliated with **WhatsApp Inc.**  
+> - Misuse may result in **account ban** — you are responsible for your own use.  
+> - I do **not take any responsibility** for bans, misuse, or abuse of this bot.
 
-<br>
+---
+
+## ℹ️ NOTICE
+
+> ❌ **NOT FOR SALE**  
+> Do not remove credits or obfuscate source codes without permission.  
+> Please give credit if you use or reupload anything.  
+> Wishing you a successful development experience!
+
+---
+
+## ⚠️ DISCLAIMER
+
+### ❗ DON'T COPY OR RE-UPLOAD WITHOUT PERMISSION ❗
 
