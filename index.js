@@ -43,7 +43,9 @@ const {
   const Crypto = require('crypto')
   const path = require('path')
   const prefix = config.PREFIX
-  
+
+const antispamHandler = require('./handler/antispamHandler');
+
   const ownerNumber = ['13058962443']
   
   const tempDir = path.join(os.tmpdir(), 'cache-temp')
