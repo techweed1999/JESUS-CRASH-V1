@@ -44,7 +44,13 @@ const {
   const path = require('path')
   const prefix = config.PREFIX
 
-const antispamHandler = require('./handler/antispamHandler');
+global.db = {
+  data: {
+    antispam: []
+  }
+}
+
+const antispam = require('./handler/antispam');
 
   const ownerNumber = ['13058962443']
   
