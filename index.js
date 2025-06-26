@@ -50,7 +50,8 @@ global.db = {
   }
 }
 
-const antispam = require('./handler/antispam');
+const antispam = require('./lib/antispam')
+antispam.ResetSpam(global.db.data.antispam)
 
   const ownerNumber = ['13058962443']
   
