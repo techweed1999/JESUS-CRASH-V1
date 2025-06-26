@@ -20,7 +20,8 @@ cmd({
 
     // 🏷️ Mete non ou ak packname ou vle a
     const packname = '𓄂⍣⃝𝐆𝚯𝐃𝄟✮͢≛𝐃𝐀𝐖𝐄𝐍𝐒𝄟✮⃝🧭𓄂';
-    const author = 'DAWENS-BOT';
+    const author = `Ma volonté est un feu indomptable,
+mon nom, une légende qui s’écrit à chaque pas.`;
 
     const sticker = new Sticker(media, {
       pack: packname,
