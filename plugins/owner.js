@@ -8,39 +8,40 @@ cmd({
     category: "owner",
     filename: __filename
 }, 
-async (conn, mek, m, { from }) => {
+async (conn, mek, m, { from, reply }) => {
     try {
-        const ownerNumber = config.OWNER_NUMBER; // Fetch owner number from config
-        const ownerName = config.OWNER_NAME;     // Fetch owner name from config
+        const ownerNumber = config.OWNER_NUMBER; // e.g. +13058962443
+        const ownerName = config.OWNER_NAME || 'Unknown';
 
         const vcard = 'BEGIN:VCARD\n' +
                       'VERSION:3.0\n' +
-                      `FN:Gotar Tech\n` +  
+                      `FN:${ownerName}\n` +  
                       `TEL;type=CELL;type=VOICE;waid=${ownerNumber.replace('+', '')}:${ownerNumber}\n` + 
                       'END:VCARD';
 
-        // Send the vCard
-        const sentVCard = await conn.sendMessage(from, {
+        // Voye vCard la
+        await conn.sendMessage(from, {
             contacts: {
                 displayName: ownerName,
                 contacts: [{ vcard }]
             }
-        });
+        }, { quoted: mek });
 
-        // Send the owner contact message with image and audio
+        // Voye imaj ak caption
         await conn.sendMessage(from, {
-            image: { url: 'https://files.catbox.moe/fuoqii.png' }, // Image URL from your request
-            caption: `╭━━〔 JESUS-CRASH-V1 〕━━┈⊷
-┃◈╭─────────────·๏
-┃◈┃• *Here is the owner details*
-┃◈┃• *Name* - ${ownerName}
-┃◈┃• *Number* ${ownerNumber}
-┃◈┃• *Version*: 1.0.0 Beta
-┃◈└───────────┈⊷
-╰──────────────┈⊷
-> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ DAWENS BOY*`, // Display the owner's details
+            image: { url: 'https://files.catbox.moe/fuoqii.png' }, // Imaj owner
+            caption: `╭━━━〔 👑 *OWNER INFORMATION* 〕━━━╮
+┃
+┃ 👤 *Name*   : ${ownerName}
+┃ 📞 *Number* : ${ownerNumber}
+┃ 🧩 *Bot Ver*: 1.0.0 Beta
+┃ ⚙️ *Powered By*: DAWENS BOY
+┃
+╰━━━━━━━━━━━━━━━━━━━━━━━╯
+📌 *JESUS-CRASH-V1* | *Official Bot*
+> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ DAWENS BOY*`,
             contextInfo: {
-                mentionedJid: [`${ownerNumber.replace('+', '')}@s.whatsapp.net`], 
+                mentionedJid: [`${ownerNumber.replace('+', '')}@s.whatsapp.net`],
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
@@ -53,6 +54,6 @@ async (conn, mek, m, { from }) => {
 
     } catch (error) {
         console.error(error);
-        reply(`An error occurred: ${error.message}`);
+        reply(`❌ Erè: ${error.message}`);
     }
 });
