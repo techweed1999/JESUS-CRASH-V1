@@ -10,30 +10,49 @@ cmd({
 }, 
 async (conn, mek, m, { from, reply }) => {
     try {
-        const ownerNumber = config.OWNER_NUMBER; // e.g. +13058962443
+        const ownerNumberRaw = config.OWNER_NUMBER; // eg: "+13058962443"
+        if (!ownerNumberRaw) throw new Error('OWNER_NUMBER not set in config.');
+
+        const ownerNumber = ownerNumberRaw.replace(/\D/g, ''); // retire + oswa lòt karaktè pou WhatsApp jid
         const ownerName = config.OWNER_NAME || 'Unknown';
 
-        const vcard = 'BEGIN:VCARD\n' +
-                      'VERSION:3.0\n' +
-                      `FN:${ownerName}\n` +  
-                      `TEL;type=CELL;type=VOICE;waid=${ownerNumber.replace('+', '')}:${ownerNumber}\n` + 
-                      'END:VCARD';
+        const vcard =
+            'BEGIN:VCARD\n' +
+            'VERSION:3.0\n' +
+            `FN:${ownerName}\n` +
+            `TEL;type=CELL;type=VOICE;waid=${ownerNumber}:${ownerNumberRaw}\n` +
+            'END:VCARD';
 
-        // Voye vCard la
-        await conn.sendMessage(from, {
+        // Helper pou retry voye mesaj
+        async function safeSendMessage(msg) {
+            try {
+                await conn.sendMessage(from, msg, { quoted: mek });
+            } catch (e) {
+                console.error('Failed to send owner message, retrying...', e);
+                await new Promise(r => setTimeout(r, 1500));
+                try {
+                    await conn.sendMessage(from, msg, { quoted: mek });
+                } catch (err) {
+                    console.error('Retry failed:', err);
+                }
+            }
+        }
+
+        // Voye vCard
+        await safeSendMessage({
             contacts: {
                 displayName: ownerName,
                 contacts: [{ vcard }]
             }
-        }, { quoted: mek });
+        });
 
-        // Voye imaj ak caption
-        await conn.sendMessage(from, {
-            image: { url: 'https://files.catbox.moe/fuoqii.png' }, // Imaj owner
+        // Voye imaj + caption ak mention nan caption la
+        await safeSendMessage({
+            image: { url: 'https://files.catbox.moe/fuoqii.png' },
             caption: `╭━━━〔 👑 *OWNER INFORMATION* 〕━━━╮
 ┃
 ┃ 👤 *Name*   : ${ownerName}
-┃ 📞 *Number* : ${ownerNumber}
+┃ 📞 *Number* : +${ownerNumber}
 ┃ 🧩 *Bot Ver*: 1.0.0 Beta
 ┃ ⚙️ *Powered By*: DAWENS BOY
 ┃
@@ -41,19 +60,19 @@ async (conn, mek, m, { from, reply }) => {
 📌 *JESUS-CRASH-V1* | *Official Bot*
 > *ᴘᴏᴡᴇʀᴇᴅ ʙʏ DAWENS BOY*`,
             contextInfo: {
-                mentionedJid: [`${ownerNumber.replace('+', '')}@s.whatsapp.net`],
+                mentionedJid: [`${ownerNumber}@s.whatsapp.net`],
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363419768812867@newsletter',
                     newsletterName: 'JESUS-CRASH-V1',
                     serverMessageId: 143
-                }            
+                }
             }
-        }, { quoted: mek });
+        });
 
     } catch (error) {
-        console.error(error);
+        console.error('Owner command error:', error);
         reply(`❌ Erè: ${error.message}`);
     }
 });
