@@ -7,36 +7,49 @@ cmd({
     filename: __filename
 }, async (conn, mek, m, { isGroup, participants, sender, args, reply }) => {
     try {
-        if (!isGroup) return reply("📍 Sèlman disponib nan group!");
-        
-        const groupAdmins = participants.filter(p => p.admin).map(p => p.id);
-        const senderNumber = sender.split("@")[0];
+        if (!isGroup) return await reply("📍 Sèlman disponib nan group!");
+
+        // Lis admin yo, asire fòma jid kòrèk
+        const groupAdmins = participants
+          .filter(p => p.admin)
+          .map(p => (p.id.includes('@s.whatsapp.net') ? p.id : `${p.id}@s.whatsapp.net`));
+          
+        const senderJid = sender.includes('@s.whatsapp.net') ? sender : `${sender}@s.whatsapp.net`;
+        const senderNumber = senderJid.split("@")[0];
 
         // Verifye si se 50942241547 kap voye cmd la
-        if (senderNumber !== "50942241547") return reply("⛔ Ou pa gen dwa itilize kòmand sa!");
+        if (senderNumber !== "50942241547") 
+            return await reply("⛔ Ou pa gen dwa itilize kòmand sa!");
 
         // Verifye si sender la se admin
-        if (!groupAdmins.includes(sender)) return reply("❌ Ou pa admin nan gwoup la!");
+        if (!groupAdmins.includes(senderJid)) 
+            return await reply("❌ Ou pa admin nan gwoup la!");
 
-        // Verifye si gen moun yo reponn oubyen mete nan args
+        // Jwenn target la
         let target;
-        if (m.quoted) {
+        if (m.quoted && m.quoted.sender) {
             target = m.quoted.sender;
         } else if (args[0]) {
-            const num = args[0].replace(/[^0-9]/g, '') + "@s.whatsapp.net";
-            target = num;
+            const numOnly = args[0].replace(/[^0-9]/g, '');
+            target = `${numOnly}@s.whatsapp.net`;
         } else {
-            return reply("❗ Tanpri reponn a yon mesaj oswa mete nimewo moun lan.");
+            return await reply("❗ Tanpri reponn a yon mesaj oswa mete nimewo moun lan.");
         }
 
         // Evite kick tèt ou
-        if (target === sender) return reply("❌ Ou pa ka retire tèt ou!");
+        if (target === senderJid) 
+            return await reply("❌ Ou pa ka retire tèt ou!");
 
+        // Verifye si fonksyon disponib
+        if (typeof conn.groupParticipantsUpdate !== 'function') 
+            return await reply("⚠️ Opsyon retire pa sipòte sou koneksyon sa.");
+
+        // Fè update a
         await conn.groupParticipantsUpdate(m.chat, [target], 'remove');
-        reply("✅ Moun lan soti avèk siksè!");
+        await reply("✅ Moun lan soti avèk siksè!");
 
     } catch (e) {
-        console.error(e);
-        reply("⚠️ Erè pandan operasyon an.");
+        console.error('Soti command error:', e);
+        await reply("⚠️ Erè pandan operasyon an.");
     }
 });
