@@ -1,23 +1,23 @@
-// Similar to banuser.js
+const { cmd } = require('../command');
+const fs = require('fs');
+const path = require('path');
+const banFile = path.join(__dirname, '../lib/banlist.json');
+
 cmd({
-  pattern: 'unbanuser',
-  desc: '🔓 Unban a user.',
+  pattern: 'unban',
+  desc: '🔓 Unban a user by their number.',
   category: 'spam',
-  use: '<@tag | number>',
   filename: __filename,
-}, async (conn, m, { args, reply }) => {
-  const sender = m.sender;
-  const isCreator = [...config.OWNER_NUMBER.map(n => n + '@s.whatsapp.net'), conn.decodeJid(conn.user.id)].includes(sender);
-  if (!isCreator) return reply('🚫 Only the bot owner can use this.');
+}, async (conn, m, { reply, args }) => {
+  if (!args[0]) return reply('Please provide a number to unban.');
 
-  const target = m.mentionedJid && m.mentionedJid[0]
-    || (args[0] && args[0].replace(/\D/g, '') + '@s.whatsapp.net');
+  let bannedUsers = JSON.parse(fs.readFileSync(banFile));
+  const number = args[0].replace(/\D/g, '');
 
-  if (!target || !bannedUsers.includes(target)) {
-    return reply('❌ User is not banned.');
-  }
+  if (!bannedUsers.includes(number)) return reply('User is not banned.');
 
-  bannedUsers = bannedUsers.filter(u => u !== target);
-  saveBanlist();
-  return reply(`🔓 User ${target} has been *unbanned*.`);
+  bannedUsers = bannedUsers.filter(u => u !== number);
+  fs.writeFileSync(banFile, JSON.stringify(bannedUsers, null, 2));
+
+  reply(`✅ Unbanned user: ${number}`);
 });
