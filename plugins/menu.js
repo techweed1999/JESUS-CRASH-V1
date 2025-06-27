@@ -14,7 +14,7 @@ function toSmallCaps(str) {
   return str.toUpperCase().split('').map(c => smallCaps[c] || c).join('');
 }
 
-// Random emoji function
+// Random emoji
 const emojis = ['🌟','🌹','⚡','🌸','✨','🔥','🌀','🩸','😍','🌚','💍','❤️','🍷'];
 const randEmoji = () => emojis[Math.floor(Math.random() * emojis.length)];
 
@@ -30,9 +30,10 @@ async (conn, mek, m, { from, reply }) => {
   try {
     const sender = m.sender || mek?.key?.participant || mek?.key?.remoteJid;
     const date = moment().tz("America/Port-au-Prince").format("dddd, DD MMMM YYYY");
+
     const uptime = () => {
-      let sec = process.uptime();
-      let h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = Math.floor(sec % 60);
+      const sec = process.uptime();
+      const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = Math.floor(sec % 60);
       return `${h}h ${m}m ${s}s`;
     };
 
@@ -41,14 +42,14 @@ async (conn, mek, m, { from, reply }) => {
     const hostName = os.hostname();
     const totalCommands = commands.length;
 
-    let menu = `
+    let menuText = `
 ╔═════◇🌐◇═════╗
     🔥 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏 🔥
 ╚═════◇🌐◇═════╝
 ║ 👤 *User*      : @${sender.split("@")[0]}
 ║ ⏱️ *Uptime*    : ${uptime()}
-║ ⚙️ *Mode*      : ${config.MODE}
-║ 💠 *Prefix*    : [${config.PREFIX}]
+║ ⚙️ *Mode*      : ${config.MODE || "public"}
+║ 💠 *Prefix*    : [${config.PREFIX || "!"}]
 ║ 📦 *Plugins*   : ${totalCommands}
 ║ 🛠️ *RAM*       : ${ramUsage}MB / ${totalRam}MB
 ║ 🖥️ *Host*      : ${hostName}
@@ -61,51 +62,60 @@ async (conn, mek, m, { from, reply }) => {
 ╚══════════════════════════════╝
 `;
 
-    // Organize commands by category
-    let category = {};
-    for (let cmd of commands) {
-      if (!cmd.category) continue;
-      if (!category[cmd.category]) category[cmd.category] = [];
-      category[cmd.category].push(cmd);
+    // Organize by category
+    const categoryMap = {};
+    for (let c of commands) {
+      if (!c.category) continue;
+      if (!categoryMap[c.category]) categoryMap[c.category] = [];
+      categoryMap[c.category].push(c);
     }
 
-    // Add commands by category to menu
-    const keys = Object.keys(category).sort();
+    const keys = Object.keys(categoryMap).sort();
     for (let k of keys) {
-      menu += `\n\n❖──⭓ *${k.toUpperCase()} MENU* ⭓──❖`;
-      const cmds = category[k].filter(c => c.pattern).sort((a, b) => a.pattern.localeCompare(b.pattern));
+      menuText += `\n\n❖──⭓ *${k.toUpperCase()} MENU* ⭓──❖`;
+      const cmds = categoryMap[k].filter(c => c.pattern).sort((a, b) => a.pattern.localeCompare(b.pattern));
       cmds.forEach((cmd) => {
         const usage = cmd.pattern.split('|')[0];
-        menu += `\n${randEmoji()} ➤ ${config.PREFIX}${toSmallCaps(usage)}`;
+        menuText += `\n${randEmoji()} ➤ ${config.PREFIX}${toSmallCaps(usage)}`;
       });
-      menu += `\n🇭🇹──⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓`;
+      menuText += `\n🇭🇹──⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓`;
     }
 
-    // Send menu message
-    await conn.sendMessage(from, {
-      image: { url: config.MENU_IMAGE_URL || 'https://files.catbox.moe/fuoqii.png' },
-      caption: menu,
-      contextInfo: {
-        mentionedJid: [sender],
-        forwardingScore: 999,
-        isForwarded: true,
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: config.newsletterJid || '120363419768812867@newsletter',
-          newsletterName: '𝗝𝗘𝗦𝗨𝗦-𝗖𝗥𝗔𝗦𝗛-𝗩𝟭',
-          serverMessageId: 143
+    // Try send menu image + caption
+    try {
+      await conn.sendMessage(from, {
+        image: { url: config.MENU_IMAGE_URL || 'https://files.catbox.moe/fuoqii.png' },
+        caption: menuText,
+        contextInfo: {
+          mentionedJid: [sender],
+          forwardingScore: 999,
+          isForwarded: true,
+          forwardedNewsletterMessageInfo: {
+            newsletterJid: config.newsletterJid || '120363419768812867@newsletter',
+            newsletterName: '𝗝𝗘𝗦𝗨𝗦-𝗖𝗥𝗔𝗦𝗛-𝗩𝟭',
+            serverMessageId: 143
+          }
         }
-      }
-    }, { quoted: mek });
+      }, { quoted: mek });
+    } catch (e) {
+      console.error('❌ Image send failed:', e.message);
+      // Send plain text as fallback
+      await reply(menuText);
+    }
 
-    // Audio feedback
-    await conn.sendMessage(from, {
-      audio: { url: 'https://files.catbox.moe/8e7mkq.mp4' },
-      mimetype: 'audio/mp4',
-      ptt: true
-    }, { quoted: mek });
+    // Try audio feedback
+    try {
+      await conn.sendMessage(from, {
+        audio: { url: 'https://files.catbox.moe/8e7mkq.mp4' },
+        mimetype: 'audio/mp4',
+        ptt: true
+      }, { quoted: mek });
+    } catch (e) {
+      console.error('⚠️ Audio send failed:', e.message);
+    }
 
   } catch (e) {
-    console.error(e);
-    reply(`❌ Error: ${e.message}`);
+    console.error('❌ Menu error:', e.message);
+    reply(`❌ Menu Error: ${e.message}`);
   }
 });
