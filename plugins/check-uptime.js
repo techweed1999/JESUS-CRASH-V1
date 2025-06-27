@@ -3,49 +3,62 @@ const { runtime } = require('../lib/functions');
 const config = require('../config');
 
 cmd({
-    pattern: "uptime",
-    alias: ["runtime", "up"],
-    desc: "Show bot uptime with stylish formats",
-    category: "main",
-    react: "⏱️",
-    filename: __filename
-},
-async (conn, mek, m, { from, reply }) => {
-    try {
-        const uptime = runtime(process.uptime());
-        const startTime = new Date(Date.now() - process.uptime() * 1000);
-        
-        
-        // Style 1: Retro Terminal
-        const style1 = `╔══════════════════════╗
-║   JESUS-CRASH-V1 UPTIME    
-╠══════════════════════
-║  RUNTIME: ${uptime}
-║  SINCE: ${startTime.toLocaleString()}
-╚══════════════════════╝
+  pattern: "uptime",
+  alias: ["runtime", "up"],
+  desc: "Show bot uptime with styles",
+  category: "info",
+  react: "🕐",
+  filename: __filename
+}, async (conn, mek, m, { from, reply }) => {
+  try {
+    const uptime = runtime(process.uptime());
+    const startTime = new Date(Date.now() - process.uptime() * 1000).toLocaleString();
 
-> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ DAWENS BOY*`;
+    const styles = [
 
+`┏━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🤖 *JESUS-CRASH-V1 Uptime*
+┣━━━━━━━━━━━━━━━━━━━━━━━┫
+┃ ⏳ *Runtime:* ${uptime}
+┃ 🕐 *Since:* ${startTime}
+┗━━━━━━━━━━━━━━━━━━━━━━━┛
+⭐ Powered by *DAWENS BOY*`,
 
-        const styles = [style1];
-        const selectedStyle = styles[Math.floor(Math.random() * styles.length)];
+`╭───────『 *⏱ UPTIME* 』───────╮
+│  🤖 Bot: JESUS-CRASH-V1
+│  📆 Since: ${startTime}
+│  ⏳ Uptime: ${uptime}
+╰──────────────────────────────╯`,
 
-        await conn.sendMessage(from, { 
-            text: selectedStyle,
-            contextInfo: {
-                mentionedJid: [m.sender],
-                forwardingScore: 999,
-                isForwarded: true,
-                forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363419768812867@newsletter',
-                    newsletterName: config.OWNER_NAME || 'JESUS-CRASH-V1',
-                    serverMessageId: 143
-                }
-            }
-        }, { quoted: mek });
+`==============================
+   ⚙️  JESUS-CRASH-V1 STATUS
+==============================
+⏱️ Uptime: ${uptime}
+📆 Started At: ${startTime}
+==============================
+💠 Owner: ${config.OWNER_NAME || 'DAWENS BOY'}
+🔗 GitHub: https://github.com/DAWENS-BOY96
+==============================`
+    ];
 
-    } catch (e) {
-        console.error("Uptime Error:", e);
-        reply(`❌ Error: ${e.message}`);
-    }
+    const randomStyle = styles[Math.floor(Math.random() * styles.length)];
+
+    await conn.sendMessage(from, {
+      text: randomStyle,
+      contextInfo: {
+        mentionedJid: [m.sender],
+        forwardingScore: 777,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+          newsletterJid: '120363419768812867@newsletter',
+          newsletterName: config.OWNER_NAME || 'JESUS-CRASH-V1',
+          serverMessageId: 143
+        }
+      }
+    }, { quoted: mek });
+
+  } catch (e) {
+    console.error("Uptime Error:", e);
+    reply(`❌ Error: ${e.message}`);
+  }
 });
