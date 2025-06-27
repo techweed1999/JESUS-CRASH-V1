@@ -1,34 +1,36 @@
 const config = require('../config');
 
-// Main command function
 const anticallcommand = async (m, Matrix) => {
-  const botNumber = await Matrix.decodeJid(Matrix.user.id);
-  const isCreator = [botNumber, ...config.OWNER_NUMBER.map(n => n + '@s.whatsapp.net')].includes(m.sender);
-  const prefix = config.PREFIX;
-  const cmd = m.body.startsWith(prefix) ? m.body.slice(prefix.length).split(' ')[0].toLowerCase() : '';
-  const text = m.body.slice(prefix.length + cmd.length).trim();
+  try {
+    const botNumber = await Matrix.decodeJid(Matrix.user.id);
+    const isCreator = [botNumber, ...config.OWNER_NUMBER.map(n => n + '@s.whatsapp.net')].includes(m.sender);
+    const prefix = config.PREFIX;
+    const cmd = m.body.startsWith(prefix) ? m.body.slice(prefix.length).split(' ')[0].toLowerCase() : '';
+    const args = m.body.slice(prefix.length + cmd.length).trim().toLowerCase();
 
-  if (cmd === 'anticall') {
-    if (!isCreator) return m.reply("*Only bot owner can use this command.*");
+    if (cmd !== 'anticall') return;
 
-    let responseMessage;
+    if (!isCreator) {
+      return m.reply("🚫 *Only the bot owner can use this command.*");
+    }
 
-    if (text === 'on') {
+    let response;
+
+    if (args === 'on') {
       config.REJECT_CALL = true;
-      responseMessage = "✅ Anti-Call has been *enabled*.";
-    } else if (text === 'off') {
+      response = "✅ *Anti-Call has been enabled.*\n📞 Incoming calls will be automatically rejected.";
+    } else if (args === 'off') {
       config.REJECT_CALL = false;
-      responseMessage = "❌ Anti-Call has been *disabled*.";
+      response = "❌ *Anti-Call has been disabled.*\n☎️ Bot will no longer auto-reject calls.";
     } else {
-      responseMessage = "Usage:\n\n- `anticall on` — Enable\n- `anticall off` — Disable";
+      response = `📛 *Invalid usage!*\n\n🛠️ Example:\n• \`${prefix}anticall on\` — Enable auto reject\n• \`${prefix}anticall off\` — Disable auto reject`;
     }
 
-    try {
-      await Matrix.sendMessage(m.from, { text: responseMessage }, { quoted: m });
-    } catch (error) {
-      console.error("Error sending anti-call response:", error);
-      await Matrix.sendMessage(m.from, { text: '❌ Failed to process your request.' }, { quoted: m });
-    }
+    await Matrix.sendMessage(m.from, { text: response }, { quoted: m });
+
+  } catch (error) {
+    console.error("❌ AntiCall Command Error:", error);
+    await Matrix.sendMessage(m.from, { text: "⚠️ *An error occurred while processing your request.*" }, { quoted: m });
   }
 };
 
