@@ -1,8 +1,9 @@
 const config = require('../config');
+const os = require('os');
 const moment = require('moment-timezone');
 const { cmd, commands } = require('../command');
 
-// Small caps function
+// Small caps
 function toSmallCaps(str) {
   const smallCaps = {
     A: 'ᴀ', B: 'ʙ', C: 'ᴄ', D: 'ᴅ', E: 'ᴇ', F: 'ғ', G: 'ɢ', H: 'ʜ',
@@ -13,50 +14,50 @@ function toSmallCaps(str) {
   return str.toUpperCase().split('').map(c => smallCaps[c] || c).join('');
 }
 
-// Delay function
-function delay(ms) {
-  return new Promise(res => setTimeout(res, ms));
-}
+// Random emoji function
+const emojis = ['🌟','🌹','⚡','🌸','✨','🔥','🌀','🩸','😍','🌚','💍','❤️','🍷'];
+const randEmoji = () => emojis[Math.floor(Math.random() * emojis.length)];
 
 cmd({
   pattern: "menu",
-  alias: ["🖤", "jesus", "allmenu"],
-  use: '.menu',
+  alias: ["allmenu", "jesus", "🖤"],
   desc: "Show all bot commands",
   category: "menu",
   react: "🖤",
   filename: __filename
 },
-async (jesus, mek, m, { from, reply }) => {
+async (conn, mek, m, { from, reply }) => {
   try {
-    const sender = (m && m.sender) ? m.sender : (mek?.key?.participant || mek?.key?.remoteJid || 'unknown@s.whatsapp.net');
-    const totalCommands = commands.length;
+    const sender = m.sender || mek?.key?.participant || mek?.key?.remoteJid;
     const date = moment().tz("America/Port-au-Prince").format("dddd, DD MMMM YYYY");
-
     const uptime = () => {
       let sec = process.uptime();
-      let h = Math.floor(sec / 3600);
-      let m = Math.floor((sec % 3600) / 60);
-      let s = Math.floor(sec % 60);
+      let h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = Math.floor(sec % 60);
       return `${h}h ${m}m ${s}s`;
     };
 
-    let jesusMenu = `
+    const ramUsage = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(1);
+    const totalRam = (os.totalmem() / 1024 / 1024).toFixed(1);
+    const hostName = os.hostname();
+    const totalCommands = commands.length;
+
+    let menu = `
 ╔═════◇🌐◇═════╗
     🔥 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏 🔥
 ╚═════◇🌐◇═════╝
-║ 👤 *User*      : @${m.sender.split("@")[0]}          
-║ ⏱️ *Uptime*    : ${uptime()}                        
-║ ⚙️ *Mode*      : ${config.MODE}                   
-║ 💠 *Prefix*    : [${config.PREFIX}]                
-║ 📦 *Plugins*   : ${totalCommands}                 
-║ 👑 *Developer* : 𝐃𝐀𝐖𝐄𝐍𝐒 𝐁𝐎𝐘 🇭🇹✨             
-║ 🛠️ *Version*   : 1.0.0 🩸                         
-║ 📆 *Date*      : ${date}                           
+║ 👤 *User*      : @${sender.split("@")[0]}
+║ ⏱️ *Uptime*    : ${uptime()}
+║ ⚙️ *Mode*      : ${config.MODE}
+║ 💠 *Prefix*    : [${config.PREFIX}]
+║ 📦 *Plugins*   : ${totalCommands}
+║ 🛠️ *RAM*       : ${ramUsage}MB / ${totalRam}MB
+║ 🖥️ *Host*      : ${hostName}
+║ 👑 *Developer* : DAWENS BOY 🇭🇹
+║ 📆 *Date*      : ${date}
 ╠══════════════════════════════╣
-║ ✨ *Welcome to* 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏             
-║ 🧠 Type *.menu* to explore features               
-║ 🇭🇹 No mercy, just ⚔️ power.                       
+ ✨ *Welcome to JESUS-CRASH-V1*
+🧠 Type *.menu* to explore features.
+⚔️ No mercy, just power. 🇭🇹
 ╚══════════════════════════════╝
 `;
 
@@ -71,19 +72,19 @@ async (jesus, mek, m, { from, reply }) => {
     // Add commands by category to menu
     const keys = Object.keys(category).sort();
     for (let k of keys) {
-      jesusMenu += `\n\n❖──⭓ *${k.toUpperCase()} MENU* ⭓──❖`;
+      menu += `\n\n❖──⭓ *${k.toUpperCase()} MENU* ⭓──❖`;
       const cmds = category[k].filter(c => c.pattern).sort((a, b) => a.pattern.localeCompare(b.pattern));
       cmds.forEach((cmd) => {
         const usage = cmd.pattern.split('|')[0];
-        jesusMenu += `\n🌹 ➤ ${config.PREFIX}${toSmallCaps(usage)}`;
+        menu += `\n${randEmoji()} ➤ ${config.PREFIX}${toSmallCaps(usage)}`;
       });
-      jesusMenu += `\n🇭🇹──⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓`;
+      menu += `\n🇭🇹──⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓`;
     }
 
-    // Send menu message without buttons
-    await jesus.sendMessage(from, {
+    // Send menu message
+    await conn.sendMessage(from, {
       image: { url: config.MENU_IMAGE_URL || 'https://files.catbox.moe/fuoqii.png' },
-      caption: jesusMenu,
+      caption: menu,
       contextInfo: {
         mentionedJid: [sender],
         forwardingScore: 999,
@@ -96,8 +97,8 @@ async (jesus, mek, m, { from, reply }) => {
       }
     }, { quoted: mek });
 
-    // Optional: send audio message as PTT
-    await jesus.sendMessage(from, {
+    // Audio feedback
+    await conn.sendMessage(from, {
       audio: { url: 'https://files.catbox.moe/8e7mkq.mp4' },
       mimetype: 'audio/mp4',
       ptt: true
