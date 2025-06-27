@@ -13,7 +13,7 @@ cmd({
 }, async (conn, m, { text }) => {
   if (!text) return m.reply('❌ *Please provide a MEGA Session ID!*\nExample:\n.deploy JESUS~CRASH~V1~<file_id>#<file_key>');
 
-  // ✅ REGEX FIXED: allow full MEGA file key characters
+  // Regex pou verifye fomat sesyon MEGA
   const match = text.trim().match(/^JESUS~CRASH~V1~([^#]+)#(.+)$/);
   if (!match) return m.reply('❌ *Invalid session format.* Use:\n.deploy JESUS~CRASH~V1~<file_id>#<file_key>');
 
@@ -32,7 +32,6 @@ cmd({
     for await (const chunk of stream) chunks.push(chunk);
     const sessionJson = JSON.parse(Buffer.concat(chunks).toString());
 
-    // ✅ Additional validation
     if (!sessionJson.creds || typeof sessionJson.creds !== 'object') {
       return m.reply('❌ *Invalid session JSON: missing or malformed creds.*');
     }
