@@ -7,74 +7,72 @@ const { runtime } = require('../lib/functions');
 
 cmd({
   pattern: 'version',
-  alias: ["changelog", "cupdate", "checkupdate"],
-  react: '🚀',
-  desc: "Check bot's version, system stats, and update info.",
-  category: 'menu',
-  filename: __filename
-}, async (conn, mek, m, {
-  from, sender, pushname, reply
-}) => {
+  alias: ['check', 'update', 'changelog'],
+  desc: 'Show current version and system info.',
+  category: 'info',
+  react: '🧬',
+  filename: __filename,
+}, async (conn, mek, m, { from, reply, pushname }) => {
   try {
-    // Read local version data
-    const localVersionPath = path.join(__dirname, '../data/version.json');
-    let localVersion = 'Unknown';
-    let changelog = 'No changelog available.';
-    if (fs.existsSync(localVersionPath)) {
-      const localData = JSON.parse(fs.readFileSync(localVersionPath));
-      localVersion = localData.version;
-      changelog = localData.changelog;
-    }
-
-    // Fetch latest version data from GitHub
-    const rawVersionUrl = 'https://raw.githubusercontent.com/DAWENS-BOY96/JESUS-CRASH-V1/main/data/version.json';
-    let latestVersion = 'Unknown';
-    let latestChangelog = 'No changelog available.';
-    try {
-      const { data } = await axios.get(rawVersionUrl);
-      latestVersion = data.version;
-      latestChangelog = data.changelog;
-    } catch (error) {
-      console.error('Failed to fetch latest version:', error);
-    }
-
-    // Count total plugins
+    const versionFile = path.join(__dirname, '../data/version.json');
     const pluginPath = path.join(__dirname, '../plugins');
-    const pluginCount = fs.readdirSync(pluginPath).filter(file => file.endsWith('.js')).length;
 
-    // Count total registered commands
-    const totalCommands = commands.length;
+    // Local Version Info
+    let localVersion = '0.0.0';
+    let localChangelog = 'N/A';
+    if (fs.existsSync(versionFile)) {
+      const versionData = JSON.parse(fs.readFileSync(versionFile));
+      localVersion = versionData.version;
+      localChangelog = versionData.changelog;
+    }
 
-    // System info
-    const uptime = runtime(process.uptime());
-    const ramUsage = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
-    const totalRam = (os.totalmem() / 1024 / 1024).toFixed(2);
-    const hostName = os.hostname();
-    const lastUpdate = fs.statSync(localVersionPath).mtime.toLocaleString();
-
-    // GitHub stats
-    const githubRepo = 'https://github.com/DAWENS-BOY96/JESUS-CRASH-V1';
+    // Remote Version Info
+    let remoteVersion = localVersion;
+    let remoteChangelog = localChangelog;
+    try {
+      const { data } = await axios.get('https://raw.githubusercontent.com/DAWENS-BOY96/JESUS-CRASH-V1/main/data/version.json');
+      remoteVersion = data.version;
+      remoteChangelog = data.changelog;
+    } catch (err) {
+      console.warn('[WARN] Cannot fetch remote version:', err.message);
+    }
 
     // Check update status
-    let updateMessage = `✅ Your JESUS-CRASH-V1 bot is up-to-date!`;
-    if (localVersion !== latestVersion) {
-      updateMessage = `Your 🚀JESUS-CRASH-V1 bot is outdated!
-🔹 *Current Version:* ${localVersion}
-🔹 *Latest Version:* ${latestVersion}
+    const updateStatus = localVersion === remoteVersion
+      ? '✅ *Up-to-date!*'
+      : `🛑 *Outdated!*\n🔸 Local: ${localVersion}\n🔸 Latest: ${remoteVersion}\n🔄 Use *.update* to upgrade.`;
 
-Use *.update* to update.`;
-    }
+    // System Info
+    const uptime = runtime(process.uptime());
+    const ramUsed = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(1);
+    const ramTotal = (os.totalmem() / 1024 / 1024).toFixed(1);
+    const totalPlugins = fs.readdirSync(pluginPath).filter(f => f.endsWith('.js')).length;
 
-    const statusMessage = `🌟 *Good ${new Date().getHours() < 12 ? 'Morning' : 'Night'}, ${pushname}!* 🌟\n\n` +
-      `📌 *Bot Name:* JESUS-CRASH-V1\n🔖 *Current Version:* ${localVersion}\n📢 *Latest Version:* ${latestVersion}\n📂 *Total Plugins:* ${pluginCount}\n🔢 *Total Commands:* ${totalCommands}\n\n` +
-      `💾 *System Info:*\n⏳ *Uptime:* ${uptime}\n📟 *RAM Usage:* ${ramUsage}MB / ${totalRam}MB\n⚙️ *Host Name:* ${hostName}\n📅 *Last Update:* ${lastUpdate}\n\n` +
-      `📝 *Changelog:*\n${latestChangelog}\n\n` +
-      `⭐ *GitHub Repo:* ${githubRepo}\n👤 *Owner:* [DAWENS-BOY96](https://github.com/DAWENS-BOY96)\n\n${updateMessage}\n\n🚀 *Hey! Don't forget to fork & star the repo!*`;
+    const totalCommands = commands.length;
+    const host = os.hostname();
 
-    // Send the status message with an image
+    const message = `
+🧠 *Bot Version Info*
+────────────────────
+📌 *Bot:* JESUS-CRASH-V1
+🧩 *Local Version:* ${localVersion}
+🌐 *Latest Version:* ${remoteVersion}
+🔧 *Plugins Loaded:* ${totalPlugins}
+📦 *Commands Registered:* ${totalCommands}
+
+💾 *System Stats*
+⏱ *Uptime:* ${uptime}
+📟 *RAM:* ${ramUsed}MB / ${ramTotal}MB
+🖥 *Host:* ${host}
+
+📋 *Changelog:*\n${remoteChangelog.trim()}
+
+${updateStatus}
+`.trim();
+
     await conn.sendMessage(from, {
-      image: { url: 'https://files.catbox.moe/fuoqii.png' },
-      caption: statusMessage,
+      image: { url: 'https://i.ibb.co/KhYC4FY/1221bc0bdd2354b42b293317.jpg' }, // 👈 modify or remove if needed
+      caption: message,
       contextInfo: {
         mentionedJid: [m.sender],
         forwardingScore: 999,
@@ -86,8 +84,8 @@ Use *.update* to update.`;
         }
       }
     }, { quoted: mek });
-  } catch (error) {
-    console.error('Error fetching version info:', error);
-    reply('❌ An error occurred while checking the bot version.');
+  } catch (err) {
+    console.error(err);
+    reply('❌ Error fetching version info. Please try again.');
   }
 });
