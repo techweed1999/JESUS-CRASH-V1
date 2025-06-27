@@ -45,7 +45,7 @@ async (jesus, mek, m, { from, reply }) => {
 ╔═════◇🌐◇═════╗
     🔥 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏 🔥
 ╚═════◇🌐◇═════╝
-║ 📛 *User*      : @${m.sender.split("@")[0]}          
+║ 👤 *User*      : @${m.sender.split("@")[0]}          
 ║ ⏱️ *Uptime*    : ${uptime()}                        
 ║ ⚙️ *Mode*      : ${config.MODE}                   
 ║ 💠 *Prefix*    : [${config.PREFIX}]                
