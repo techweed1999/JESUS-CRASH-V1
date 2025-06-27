@@ -77,7 +77,7 @@ antispam.ResetSpam(global.db.data.antispam)
   //===================SESSION-AUTH============================
 if (!fs.existsSync(__dirname + '/sessions/creds.json')) {
 if(!config.SESSION_ID) return console.log('Please add your session to SESSION_ID env !!')
-const sessdata = config.SESSION_ID.replace("MUZAN~X~MD~", '');
+const sessdata = config.SESSION_ID.replace("JESUS~CRASH~V1~", '');
 const filer = File.fromURL(`https://mega.nz/file/${sessdata}`)
 filer.download((err, data) => {
 if(err) throw err
@@ -120,10 +120,10 @@ const port = process.env.PORT || 9090;
   }
   });
   console.log('Plugins installed successful ✅')
-  console.log('MUZAN-X MD CONNECTED SUCCESSFULLY ✅')
+  console.log('JESUS-CRASH-V1 CONNECTED SUCCESSFULLY ✅')
   
-  let up = `*Hello there MUZAN-X MD User! \ud83d\udc4b\ud83c\udffb* \n\n> Simple , Straight Forward But Loaded With Features \ud83c\udf8a, Meet MUZAN-X MD WhatsApp Bot.\n\n *Thanks for using MUZAN-X MD \ud83d\udea9* \n\n> Join WhatsApp Channel :- ⤵️\n \https://whatsapp.com/channel/0029VbAq7chIXnlyraijAX1u\n\n- *YOUR PREFIX:* = ${prefix}\n\n- *BOT MODE:* = ${config.MODE}\n\nDont forget to give star to repo ⬇️\n\nhttps://github.com/DAWENS-BOY96/MUZAN-X-MD\n\n> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ DAWENS BOY \ud83d\udda4`;
-    conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/e8pgsz.png` }, caption: up })
+  let up = `*Hello there JESUS-CRASH-V1 User! \ud83d\udc4b\ud83c\udffb* \n\n> Simple , Straight Forward But Loaded With Features \ud83c\udf8a, Meet JESUS-CRASH-V1 WhatsApp Bot.\n\n *Thanks for using JESUS-CRASH-V1 \ud83d\udea9* \n\n> Join WhatsApp Channel :- ⤵️\n \https://whatsapp.com/channel/0029VbAq7chIXnlyraijAX1u\n\n- *YOUR PREFIX:* = ${prefix}\n\n- *BOT MODE:* = ${config.MODE}\n\nDont forget to give star to repo ⬇️\n\nhttps://github.com/DAWENS-BOY96/JESUS-CRASH-V1\n\n> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ DAWENS BOY \ud83d\udda4`;
+    conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/fuoqii.png` }, caption: up })
   }
   })
   conn.ev.on('creds.update', saveCreds)
@@ -737,7 +737,7 @@ if (!isReact && config.CUSTOM_REACT === 'true') {
                         global.email
                     }\nitem2.X-ABLabel:GitHub\nitem3.URL:https://github.com/${
                         global.github
-                    }/muzan-x md\nitem3.X-ABLabel:GitHub\nitem4.ADR:;;${
+                    }/jesus-crash-v1\nitem3.X-ABLabel:GitHub\nitem4.ADR:;;${
                         global.location
                     };;;;\nitem4.X-ABLabel:Region\nEND:VCARD`,
                 });
@@ -778,7 +778,7 @@ if (!isReact && config.CUSTOM_REACT === 'true') {
   }
   
   app.get("/", (req, res) => {
-  res.send("MUZAN-X MD STARTED ✅");
+  res.send("JESUS-CRASH-V1 STARTED ✅");
   });
   app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
   setTimeout(() => {
