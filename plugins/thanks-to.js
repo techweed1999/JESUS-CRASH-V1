@@ -9,6 +9,8 @@ const thanksCommand = async (m, Matrix) => {
   try {
     await m.React("👤");
 
+    const senderUsername = m.sender.split("@")[0];
+
     const message = `
 ╭━━━━━━━━━━━━━❰ *DEVELOPER INFO* ❱━━━━━━━━━━━━━╮
 ┃ 👤 Developer : *© DAWENS BOY*               
@@ -26,7 +28,7 @@ const thanksCommand = async (m, Matrix) => {
     await Matrix.sendMessage(
       m.from,
       {
-        image: { url: "https://files.catbox.moe/fuoqii.png" },
+        image: { url: "https://files.catbox.moe/e8pgsz.png" },
         caption: message,
         contextInfo: {
           mentionedJid: [m.sender],
