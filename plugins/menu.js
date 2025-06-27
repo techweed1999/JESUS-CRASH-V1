@@ -45,23 +45,19 @@ async (jesus, mek, m, { from, reply }) => {
 ╔═════◇🌐◇═════╗
     🔥 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏 🔥
 ╚═════◇🌐◇═════╝
-
-📛 *User*      : @${m.sender.split("@")[0]}
-⏱️ *Uptime*    : ${uptime()}
-⚙️ *Mode*      : ${config.MODE}
-💠 *Prefix*    : [${config.PREFIX}]
-📦 *Plugins*   : ${totalCommands}
-👑 *Developer* : 𝐃𝐀𝐖𝐄𝐍𝐒 𝐁𝐎𝐘 🇭🇹✨
-🛠️ *Version*   : 1.0.0 🩸
-📆 *Date*      : ${date}
-
-━━━━━━━━━━━━━━━━━━━━━━━
-
-✨ *Welcome to* 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏
-🧠 Type *.menu* to explore features
-🇭🇹 No mercy, just ⚔️ power.
-
-━━━━━━━━━━━━━━━━━━━━━━━
+║ 📛 *User*      : @${m.sender.split("@")[0]}          
+║ ⏱️ *Uptime*    : ${uptime()}                        
+║ ⚙️ *Mode*      : ${config.MODE}                   
+║ 💠 *Prefix*    : [${config.PREFIX}]                
+║ 📦 *Plugins*   : ${totalCommands}                 
+║ 👑 *Developer* : 𝐃𝐀𝐖𝐄𝐍𝐒 𝐁𝐎𝐘 🇭🇹✨             
+║ 🛠️ *Version*   : 1.0.0 🩸                         
+║ 📆 *Date*      : ${date}                           
+╠══════════════════════════════╣
+║ ✨ *Welcome to* 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏             
+║ 🧠 Type *.menu* to explore features               
+║ 🇭🇹 No mercy, just ⚔️ power.                       
+╚══════════════════════════════╝
 `;
 
     // Organize commands by category
