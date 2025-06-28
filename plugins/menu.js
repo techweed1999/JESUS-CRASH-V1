@@ -26,7 +26,7 @@ cmd({
   react: "🖤",
   filename: __filename
 },
-async (conn, mek, m, { from, reply }) => {
+async (conn, mek, m, { from, reply, body }) => {
   try {
     const sender = m.sender || mek?.key?.participant || mek?.key?.remoteJid;
     const date = moment().tz("America/Port-au-Prince").format("dddd, DD MMMM YYYY");
@@ -42,6 +42,13 @@ async (conn, mek, m, { from, reply }) => {
     const hostName = os.hostname();
     const totalCommands = commands.length;
 
+    // ✨ Detekte prefix si se emoji
+    let usedPrefix = config.PREFIX || ".";
+    if (m.body) {
+      const match = m.body.match(/^(\W+)/); // nenpòt karaktè ki pa lèt/Chif
+      if (match && match[1]) usedPrefix = match[1];
+    }
+
     let menuText = `
 ╔═════◇🌐◇═════╗
     🔥 𝐉𝐄𝐒𝐔𝐒-𝐂𝐑𝐀𝐒𝐇-𝐕𝟏 🔥
@@ -49,7 +56,7 @@ async (conn, mek, m, { from, reply }) => {
 ║ 👤 *User*      : @${sender.split("@")[0]}
 ║ ⏱️ *Uptime*    : ${uptime()}
 ║ ⚙️ *Mode*      : ${config.MODE || "public"}
-║ 💠 *Prefix*    : [${config.PREFIX || "!"}]
+║ 💠 *Prefix*    : [${usedPrefix}]
 ║ 📦 *Plugins*   : ${totalCommands}
 ║ 🛠️ *RAM*       : ${ramUsage}MB / ${totalRam}MB
 ║ 🖥️ *Host*      : ${hostName}
@@ -57,7 +64,7 @@ async (conn, mek, m, { from, reply }) => {
 ║ 📆 *Date*      : ${date}
 ╠══════════════════════════════╣
  ✨ *Welcome to JESUS-CRASH-V1*
-🧠 Type *.menu* to explore features.
+🧠 Type *${usedPrefix}menu* to explore features.
 ⚔️ No mercy, just power. 🇭🇹
 ╚══════════════════════════════╝
 `;
@@ -76,12 +83,11 @@ async (conn, mek, m, { from, reply }) => {
       const cmds = categoryMap[k].filter(c => c.pattern).sort((a, b) => a.pattern.localeCompare(b.pattern));
       cmds.forEach((cmd) => {
         const usage = cmd.pattern.split('|')[0];
-        menuText += `\n${randEmoji()} ➤ ${config.PREFIX}${toSmallCaps(usage)}`;
+        menuText += `\n${randEmoji()} ➤ ${usedPrefix}${toSmallCaps(usage)}`;
       });
       menuText += `\n🇭🇹──⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓⭓`;
     }
 
-    // Try send menu image + caption
     try {
       await conn.sendMessage(from, {
         image: { url: config.MENU_IMAGE_URL || 'https://files.catbox.moe/fuoqii.png' },
@@ -99,11 +105,9 @@ async (conn, mek, m, { from, reply }) => {
       }, { quoted: mek });
     } catch (e) {
       console.error('❌ Image send failed:', e.message);
-      // Send plain text as fallback
       await reply(menuText);
     }
 
-    // Try audio feedback
     try {
       await conn.sendMessage(from, {
         audio: { url: 'https://files.catbox.moe/8e7mkq.mp4' },
